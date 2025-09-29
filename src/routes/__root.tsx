@@ -6,14 +6,14 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
-import Header from "../components/Header";
-
 import ClerkProvider from "../integrations/clerk/provider";
 
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 
 import appCss from "../styles.css?url";
 
+import { AppContainer } from "@/components/AppContainer";
+import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import type { QueryClient } from "@tanstack/react-query";
 
@@ -32,7 +32,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "TanStack Start Starter",
+				title: "OS Gateway",
 			},
 		],
 		links: [
@@ -48,15 +48,16 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="en" className="dark">
 			<head>
 				<HeadContent />
 			</head>
 			<body>
 				<ClerkProvider>
 					<SidebarProvider>
-						<Header />
-						{children}
+						{/* <Header /> */}
+						<AppSidebar />
+						<AppContainer>{children}</AppContainer>
 						<TanstackDevtools
 							config={{
 								position: "bottom-left",
