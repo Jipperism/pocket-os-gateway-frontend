@@ -13,12 +13,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo.table'
 import { Route as DemoClerkRouteImport } from './routes/demo.clerk'
+import { Route as ApplicationsCreateRouteImport } from './routes/applications.create'
 import { Route as ApiDemoTqTodosRouteImport } from './routes/api.demo-tq-todos'
 import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo.start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api-request'
 import { Route as DemoSentryTestingRouteImport } from './routes/demo.sentry.testing'
-import { Route as DemoFormSimpleRouteImport } from './routes/demo.form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo.form.address'
 
 const IndexRoute = IndexRouteImport.update({
@@ -39,6 +39,11 @@ const DemoTableRoute = DemoTableRouteImport.update({
 const DemoClerkRoute = DemoClerkRouteImport.update({
   id: '/demo/clerk',
   path: '/demo/clerk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplicationsCreateRoute = ApplicationsCreateRouteImport.update({
+  id: '/applications/create',
+  path: '/applications/create',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiDemoTqTodosRoute = ApiDemoTqTodosRouteImport.update({
@@ -66,11 +71,6 @@ const DemoSentryTestingRoute = DemoSentryTestingRouteImport.update({
   path: '/demo/sentry/testing',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
-  id: '/demo/form/simple',
-  path: '/demo/form/simple',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
   id: '/demo/form/address',
   path: '/demo/form/address',
@@ -81,11 +81,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
+  '/applications/create': typeof ApplicationsCreateRoute
   '/demo/clerk': typeof DemoClerkRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -94,11 +94,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
+  '/applications/create': typeof ApplicationsCreateRoute
   '/demo/clerk': typeof DemoClerkRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -108,11 +108,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
+  '/applications/create': typeof ApplicationsCreateRoute
   '/demo/clerk': typeof DemoClerkRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -123,11 +123,11 @@ export interface FileRouteTypes {
     | '/'
     | '/api/demo-names'
     | '/api/demo-tq-todos'
+    | '/applications/create'
     | '/demo/clerk'
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/demo/form/address'
-    | '/demo/form/simple'
     | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -136,11 +136,11 @@ export interface FileRouteTypes {
     | '/'
     | '/api/demo-names'
     | '/api/demo-tq-todos'
+    | '/applications/create'
     | '/demo/clerk'
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/demo/form/address'
-    | '/demo/form/simple'
     | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -149,11 +149,11 @@ export interface FileRouteTypes {
     | '/'
     | '/api/demo-names'
     | '/api/demo-tq-todos'
+    | '/applications/create'
     | '/demo/clerk'
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/demo/form/address'
-    | '/demo/form/simple'
     | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -163,11 +163,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
   ApiDemoTqTodosRoute: typeof ApiDemoTqTodosRoute
+  ApplicationsCreateRoute: typeof ApplicationsCreateRoute
   DemoClerkRoute: typeof DemoClerkRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
-  DemoFormSimpleRoute: typeof DemoFormSimpleRoute
   DemoSentryTestingRoute: typeof DemoSentryTestingRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
@@ -201,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/demo/clerk'
       fullPath: '/demo/clerk'
       preLoaderRoute: typeof DemoClerkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/applications/create': {
+      id: '/applications/create'
+      path: '/applications/create'
+      fullPath: '/applications/create'
+      preLoaderRoute: typeof ApplicationsCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/demo-tq-todos': {
@@ -238,13 +245,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoSentryTestingRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo/form/simple': {
-      id: '/demo/form/simple'
-      path: '/demo/form/simple'
-      fullPath: '/demo/form/simple'
-      preLoaderRoute: typeof DemoFormSimpleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/demo/form/address': {
       id: '/demo/form/address'
       path: '/demo/form/address'
@@ -259,11 +259,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
   ApiDemoTqTodosRoute: ApiDemoTqTodosRoute,
+  ApplicationsCreateRoute: ApplicationsCreateRoute,
   DemoClerkRoute: DemoClerkRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
-  DemoFormSimpleRoute: DemoFormSimpleRoute,
   DemoSentryTestingRoute: DemoSentryTestingRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,

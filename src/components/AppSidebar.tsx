@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+
+import { Plus } from "lucide-react";
 
 import {
 	Sidebar as SidebarComponent,
@@ -11,20 +12,27 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useAuth } from "@clerk/clerk-react";
 import ClerkHeader from "../integrations/clerk/header-user.tsx";
 
 // Menu items.
 const menuItems = [
 	{
-		label: "Application",
+		label: "Account",
 		items: [
 			{
 				title: "Home",
 				url: "/",
-				icon: Home,
 			},
+			{ title: "Upgrade to Unlimited", url: "/upgrade" },
+			{ title: "Insights", url: "/insights" },
+			{ title: "Logs", url: "/logs" },
+			{ title: "Sandbox", url: "/sandbox" },
+			{ title: "Account Settings", url: "/account-settings" },
 		],
+	},
+	{
+		label: "Applications",
+		items: [{ title: "Home", url: "/" }],
 	},
 	{
 		label: "Demo",
@@ -32,47 +40,34 @@ const menuItems = [
 			{
 				title: "Home",
 				url: "/",
-				icon: Home,
 			},
 			{
 				title: "Start - Server Functions",
 				url: "/demo/start/server-funcs",
-				icon: Inbox,
 			},
 			{
 				title: "Start - API Request",
 				url: "/demo/start/api-request",
-				icon: Calendar,
 			},
 			{
 				title: "Clerk",
 				url: "/demo/clerk",
-				icon: Search,
-			},
-			{
-				title: "Simple Form",
-				url: "/demo/form/simple",
-				icon: Settings,
 			},
 			{
 				title: "Address Form",
 				url: "/demo/form/address",
-				icon: Home,
 			},
 			{
 				title: "Sentry",
 				url: "/demo/sentry/testing",
-				icon: Inbox,
 			},
 			{
 				title: "TanStack Query",
 				url: "/demo/tanstack-query",
-				icon: Calendar,
 			},
 			{
 				title: "TanStack Table",
 				url: "/demo/table",
-				icon: Search,
 			},
 		],
 	},
@@ -91,7 +86,6 @@ export function AppSidebar() {
 									<SidebarMenuItem key={item.title}>
 										<SidebarMenuButton asChild>
 											<Link to={item.url}>
-												<item.icon />
 												<span>{item.title}</span>
 											</Link>
 										</SidebarMenuButton>
@@ -102,7 +96,21 @@ export function AppSidebar() {
 					</SidebarGroup>
 				))}
 				<SidebarGroup>
-					<SidebarGroupLabel>Account</SidebarGroupLabel>
+					<SidebarGroupLabel>Applications</SidebarGroupLabel>
+					<SidebarGroupContent>
+						<SidebarMenu>
+							<SidebarMenuItem className="pl-2">
+								<SidebarMenuButton asChild>
+									<Link to="/applications/create">
+										<Plus /> New Application
+									</Link>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+						</SidebarMenu>
+					</SidebarGroupContent>
+				</SidebarGroup>
+				<SidebarGroup>
+					<SidebarGroupLabel>User</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
 							<SidebarMenuItem className="pl-2">
