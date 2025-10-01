@@ -15,6 +15,7 @@ import appCss from "../styles.css?url";
 import { AppContainer } from "@/components/AppContainer";
 import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 import type { QueryClient } from "@tanstack/react-query";
 
 interface MyRouterContext {
@@ -72,6 +73,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 						/>
 					</SidebarProvider>
 				</ClerkProvider>
+				<Toaster />
 				<Scripts />
 			</body>
 		</html>

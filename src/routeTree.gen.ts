@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SandboxRouteImport } from './routes/sandbox'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo.table'
@@ -21,6 +22,11 @@ import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api
 import { Route as DemoSentryTestingRouteImport } from './routes/demo.sentry.testing'
 import { Route as DemoFormAddressRouteImport } from './routes/demo.form.address'
 
+const SandboxRoute = SandboxRouteImport.update({
+  id: '/sandbox',
+  path: '/sandbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,6 +85,7 @@ const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/sandbox': typeof SandboxRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
   '/applications/create': typeof ApplicationsCreateRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/sandbox': typeof SandboxRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
   '/applications/create': typeof ApplicationsCreateRoute
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/sandbox': typeof SandboxRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
   '/applications/create': typeof ApplicationsCreateRoute
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/sandbox'
     | '/api/demo-names'
     | '/api/demo-tq-todos'
     | '/applications/create'
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/sandbox'
     | '/api/demo-names'
     | '/api/demo-tq-todos'
     | '/applications/create'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/sandbox'
     | '/api/demo-names'
     | '/api/demo-tq-todos'
     | '/applications/create'
@@ -161,6 +173,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SandboxRoute: typeof SandboxRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
   ApiDemoTqTodosRoute: typeof ApiDemoTqTodosRoute
   ApplicationsCreateRoute: typeof ApplicationsCreateRoute
@@ -175,6 +188,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sandbox': {
+      id: '/sandbox'
+      path: '/sandbox'
+      fullPath: '/sandbox'
+      preLoaderRoute: typeof SandboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -257,6 +277,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SandboxRoute: SandboxRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
   ApiDemoTqTodosRoute: ApiDemoTqTodosRoute,
   ApplicationsCreateRoute: ApplicationsCreateRoute,
