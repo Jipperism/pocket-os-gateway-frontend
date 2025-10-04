@@ -1,6 +1,6 @@
 import { useStore } from "@tanstack/react-form";
 
-import { useFieldContext, useFormContext } from "../hooks/form-context";
+import { useFieldContext, useFormContext } from "@/hooks/form-context";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -112,10 +112,12 @@ export function Select({
 	label,
 	values,
 	placeholder,
+	disabled,
 }: {
 	label: string;
 	values: Array<{ label: string; value: string }>;
 	placeholder?: string;
+	disabled?: boolean;
 }) {
 	const field = useFieldContext<string>();
 	const errors = useStore(field.store, (state) => state.meta.errors);
@@ -126,6 +128,7 @@ export function Select({
 				name={field.name}
 				value={field.state.value}
 				onValueChange={(value) => field.handleChange(value)}
+				disabled={disabled}
 			>
 				<ShadcnSelect.SelectTrigger className="w-full">
 					<ShadcnSelect.SelectValue placeholder={placeholder} />

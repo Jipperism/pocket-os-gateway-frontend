@@ -16,9 +16,9 @@ const dummyChains: Networks[] = [
 ];
 
 const networkInfoMap = {
-	"1": { label: "Ethereum", value: "ethereum" },
-	"137": { label: "Polygon", value: "polygon" },
-	"56": { label: "BNB Smart Chain", value: "bsc" },
+	"1": { label: "Ethereum", value: "ethereum-mainnet" },
+	"137": { label: "Polygon", value: "polygon-mainnet" },
+	"56": { label: "BNB Smart Chain", value: "bsc-mainnet" },
 };
 
 const decorateNetwork = (network: Networks) => {

@@ -40,7 +40,6 @@ const dummyApplications: PortalApplications[] = [
 ];
 
 const applicationsForaccountIdFetcher = async (accountId: string) => {
-	console.log("USE_DUMMY_DATA", USE_DUMMY_DATA);
 	if (USE_DUMMY_DATA) {
 		return dummyApplications;
 	}
