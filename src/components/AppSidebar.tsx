@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useParams } from "@tanstack/react-router";
 
 import { Plus } from "lucide-react";
 
@@ -12,28 +12,12 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { getApplicationsQuery } from "@/fetching/applications.tsx";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import ClerkHeader from "../integrations/clerk/header-user.tsx";
 
 // Menu items.
 const menuItems = [
-	{
-		label: "Account",
-		items: [
-			{
-				title: "Home",
-				url: "/",
-			},
-			{ title: "Upgrade to Unlimited", url: "/upgrade" },
-			{ title: "Insights", url: "/insights" },
-			{ title: "Logs", url: "/logs" },
-			{ title: "Sandbox", url: "/sandbox" },
-			{ title: "Account Settings", url: "/account-settings" },
-		],
-	},
-	{
-		label: "Applications",
-		items: [{ title: "Home", url: "/" }],
-	},
 	{
 		label: "Demo",
 		items: [
@@ -74,34 +58,50 @@ const menuItems = [
 ];
 
 export function AppSidebar() {
+	const accountId = "a3bd0616";
+	const { data: applications } = useSuspenseQuery(getApplicationsQuery);
 	return (
 		<SidebarComponent>
 			<SidebarContent>
-				{menuItems.map((menu) => (
-					<SidebarGroup key={menu.label}>
-						<SidebarGroupLabel>{menu.label}</SidebarGroupLabel>
-						<SidebarGroupContent>
-							<SidebarMenu>
-								{menu.items.map((item) => (
-									<SidebarMenuItem key={item.title}>
-										<SidebarMenuButton asChild>
-											<Link to={item.url}>
-												<span>{item.title}</span>
-											</Link>
-										</SidebarMenuButton>
-									</SidebarMenuItem>
-								))}
-							</SidebarMenu>
-						</SidebarGroupContent>
-					</SidebarGroup>
-				))}
 				<SidebarGroup>
-					<SidebarGroupLabel>Applications</SidebarGroupLabel>
+					<SidebarGroupLabel>Account</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
 							<SidebarMenuItem className="pl-2">
 								<SidebarMenuButton asChild>
-									<Link to="/applications/create">
+									<Link to="/account/$accountId/sandbox" params={{ accountId }}>
+										Sandbox
+									</Link>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+						</SidebarMenu>
+					</SidebarGroupContent>
+				</SidebarGroup>
+				<SidebarGroup>
+					<SidebarGroupLabel>Applications</SidebarGroupLabel>
+					<SidebarGroupContent>
+						<SidebarMenu>
+							{applications.map((application) => (
+								<SidebarMenuItem
+									key={application.portalApplicationId}
+									className="pl-2"
+								>
+									<SidebarMenuButton asChild>
+										<Link
+											to="/account/$accountId/$applicationId/services"
+											params={{
+												accountId,
+												applicationId: application.portalApplicationId,
+											}}
+										>
+											{application.emoji} {application.portalApplicationName}
+										</Link>
+									</SidebarMenuButton>
+								</SidebarMenuItem>
+							))}
+							<SidebarMenuItem className="pl-2">
+								<SidebarMenuButton asChild>
+									<Link to="/account/$accountId/create" params={{ accountId }}>
 										<Plus /> New Application
 									</Link>
 								</SidebarMenuButton>
@@ -121,6 +121,24 @@ export function AppSidebar() {
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
+				{menuItems.map((menu) => (
+					<SidebarGroup key={menu.label}>
+						<SidebarGroupLabel>{menu.label}</SidebarGroupLabel>
+						<SidebarGroupContent>
+							<SidebarMenu>
+								{menu.items.map((item) => (
+									<SidebarMenuItem key={item.title}>
+										<SidebarMenuButton asChild>
+											<Link to={item.url}>
+												<span>{item.title}</span>
+											</Link>
+										</SidebarMenuButton>
+									</SidebarMenuItem>
+								))}
+							</SidebarMenu>
+						</SidebarGroupContent>
+					</SidebarGroup>
+				))}
 			</SidebarContent>
 		</SidebarComponent>
 	);

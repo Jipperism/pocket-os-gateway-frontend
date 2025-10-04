@@ -1,5 +1,5 @@
-import { CopyableInput } from "@/components/CopyableInput";
-import { HideableInput } from "@/components/HideableInput";
+import { CopyableInput } from "@/components/common/CopyableInput";
+import { HideableInput } from "@/components/common/HideableInput";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,23 +11,15 @@ import { json } from "@codemirror/lang-json";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { useStore } from "@tanstack/react-form";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, useLoaderData } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import CodeMirror from "@uiw/react-codemirror";
 import { Copy } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
-export const Route = createFileRoute("/sandbox")({
+export const Route = createFileRoute("/account/$accountId/sandbox")({
 	component: RouteComponent,
-	loader: async ({ context }) => {
-		const { queryClient } = context;
-		const [applications, networks] = await Promise.all([
-			queryClient.ensureQueryData(getApplicationsQuery),
-			queryClient.ensureQueryData(getNetworksQuery),
-		]);
-		return { applications, networks };
-	},
 });
 
 const schema = z.object({

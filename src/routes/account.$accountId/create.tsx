@@ -3,7 +3,7 @@ import { useAppForm } from "@/hooks/form";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
-export const Route = createFileRoute("/applications/create")({
+export const Route = createFileRoute("/account/$accountId/create")({
 	component: RouteComponent,
 });
 
@@ -20,7 +20,7 @@ function RouteComponent() {
 			<Separator className="my-4" />
 			<ApplicationCreateForm />
 		</>
-	);
+	)
 }
 
 const schema = z.object({
@@ -44,7 +44,7 @@ function ApplicationCreateForm() {
 			// Show success message
 			alert("Form submitted successfully!");
 		},
-	});
+	})
 
 	return (
 		<form
@@ -83,5 +83,5 @@ function ApplicationCreateForm() {
 				</form.AppForm>
 			</div>
 		</form>
-	);
+	)
 }

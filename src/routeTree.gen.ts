@@ -9,24 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SandboxRouteImport } from './routes/sandbox'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo.table'
 import { Route as DemoClerkRouteImport } from './routes/demo.clerk'
-import { Route as ApplicationsCreateRouteImport } from './routes/applications.create'
 import { Route as ApiDemoTqTodosRouteImport } from './routes/api.demo-tq-todos'
 import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo.start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api-request'
 import { Route as DemoSentryTestingRouteImport } from './routes/demo.sentry.testing'
 import { Route as DemoFormAddressRouteImport } from './routes/demo.form.address'
+import { Route as AccountAccountIdSandboxRouteImport } from './routes/account.$accountId/sandbox'
+import { Route as AccountAccountIdCreateRouteImport } from './routes/account.$accountId/create'
+import { Route as AccountAccountIdApplicationIdRouteRouteImport } from './routes/account.$accountId/$applicationId/route'
+import { Route as AccountAccountIdApplicationIdServicesRouteImport } from './routes/account.$accountId/$applicationId/services'
+import { Route as AccountAccountIdApplicationIdSecurityRouteImport } from './routes/account.$accountId/$applicationId/security'
+import { Route as AccountAccountIdApplicationIdLogsRouteImport } from './routes/account.$accountId/$applicationId/logs'
+import { Route as AccountAccountIdApplicationIdKeysRouteImport } from './routes/account.$accountId/$applicationId/keys'
+import { Route as AccountAccountIdApplicationIdInsightsRouteImport } from './routes/account.$accountId/$applicationId/insights'
 
-const SandboxRoute = SandboxRouteImport.update({
-  id: '/sandbox',
-  path: '/sandbox',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -45,11 +46,6 @@ const DemoTableRoute = DemoTableRouteImport.update({
 const DemoClerkRoute = DemoClerkRouteImport.update({
   id: '/demo/clerk',
   path: '/demo/clerk',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApplicationsCreateRoute = ApplicationsCreateRouteImport.update({
-  id: '/applications/create',
-  path: '/applications/create',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiDemoTqTodosRoute = ApiDemoTqTodosRouteImport.update({
@@ -82,104 +78,187 @@ const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
   path: '/demo/form/address',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountAccountIdSandboxRoute = AccountAccountIdSandboxRouteImport.update({
+  id: '/account/$accountId/sandbox',
+  path: '/account/$accountId/sandbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountAccountIdCreateRoute = AccountAccountIdCreateRouteImport.update({
+  id: '/account/$accountId/create',
+  path: '/account/$accountId/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountAccountIdApplicationIdRouteRoute =
+  AccountAccountIdApplicationIdRouteRouteImport.update({
+    id: '/account/$accountId/$applicationId',
+    path: '/account/$accountId/$applicationId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AccountAccountIdApplicationIdServicesRoute =
+  AccountAccountIdApplicationIdServicesRouteImport.update({
+    id: '/services',
+    path: '/services',
+    getParentRoute: () => AccountAccountIdApplicationIdRouteRoute,
+  } as any)
+const AccountAccountIdApplicationIdSecurityRoute =
+  AccountAccountIdApplicationIdSecurityRouteImport.update({
+    id: '/security',
+    path: '/security',
+    getParentRoute: () => AccountAccountIdApplicationIdRouteRoute,
+  } as any)
+const AccountAccountIdApplicationIdLogsRoute =
+  AccountAccountIdApplicationIdLogsRouteImport.update({
+    id: '/logs',
+    path: '/logs',
+    getParentRoute: () => AccountAccountIdApplicationIdRouteRoute,
+  } as any)
+const AccountAccountIdApplicationIdKeysRoute =
+  AccountAccountIdApplicationIdKeysRouteImport.update({
+    id: '/keys',
+    path: '/keys',
+    getParentRoute: () => AccountAccountIdApplicationIdRouteRoute,
+  } as any)
+const AccountAccountIdApplicationIdInsightsRoute =
+  AccountAccountIdApplicationIdInsightsRouteImport.update({
+    id: '/insights',
+    path: '/insights',
+    getParentRoute: () => AccountAccountIdApplicationIdRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/sandbox': typeof SandboxRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
-  '/applications/create': typeof ApplicationsCreateRoute
   '/demo/clerk': typeof DemoClerkRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/account/$accountId/$applicationId': typeof AccountAccountIdApplicationIdRouteRouteWithChildren
+  '/account/$accountId/create': typeof AccountAccountIdCreateRoute
+  '/account/$accountId/sandbox': typeof AccountAccountIdSandboxRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/account/$accountId/$applicationId/insights': typeof AccountAccountIdApplicationIdInsightsRoute
+  '/account/$accountId/$applicationId/keys': typeof AccountAccountIdApplicationIdKeysRoute
+  '/account/$accountId/$applicationId/logs': typeof AccountAccountIdApplicationIdLogsRoute
+  '/account/$accountId/$applicationId/security': typeof AccountAccountIdApplicationIdSecurityRoute
+  '/account/$accountId/$applicationId/services': typeof AccountAccountIdApplicationIdServicesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/sandbox': typeof SandboxRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
-  '/applications/create': typeof ApplicationsCreateRoute
   '/demo/clerk': typeof DemoClerkRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/account/$accountId/$applicationId': typeof AccountAccountIdApplicationIdRouteRouteWithChildren
+  '/account/$accountId/create': typeof AccountAccountIdCreateRoute
+  '/account/$accountId/sandbox': typeof AccountAccountIdSandboxRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/account/$accountId/$applicationId/insights': typeof AccountAccountIdApplicationIdInsightsRoute
+  '/account/$accountId/$applicationId/keys': typeof AccountAccountIdApplicationIdKeysRoute
+  '/account/$accountId/$applicationId/logs': typeof AccountAccountIdApplicationIdLogsRoute
+  '/account/$accountId/$applicationId/security': typeof AccountAccountIdApplicationIdSecurityRoute
+  '/account/$accountId/$applicationId/services': typeof AccountAccountIdApplicationIdServicesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/sandbox': typeof SandboxRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
-  '/applications/create': typeof ApplicationsCreateRoute
   '/demo/clerk': typeof DemoClerkRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/account/$accountId/$applicationId': typeof AccountAccountIdApplicationIdRouteRouteWithChildren
+  '/account/$accountId/create': typeof AccountAccountIdCreateRoute
+  '/account/$accountId/sandbox': typeof AccountAccountIdSandboxRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/account/$accountId/$applicationId/insights': typeof AccountAccountIdApplicationIdInsightsRoute
+  '/account/$accountId/$applicationId/keys': typeof AccountAccountIdApplicationIdKeysRoute
+  '/account/$accountId/$applicationId/logs': typeof AccountAccountIdApplicationIdLogsRoute
+  '/account/$accountId/$applicationId/security': typeof AccountAccountIdApplicationIdSecurityRoute
+  '/account/$accountId/$applicationId/services': typeof AccountAccountIdApplicationIdServicesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/sandbox'
     | '/api/demo-names'
     | '/api/demo-tq-todos'
-    | '/applications/create'
     | '/demo/clerk'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/account/$accountId/$applicationId'
+    | '/account/$accountId/create'
+    | '/account/$accountId/sandbox'
     | '/demo/form/address'
     | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/account/$accountId/$applicationId/insights'
+    | '/account/$accountId/$applicationId/keys'
+    | '/account/$accountId/$applicationId/logs'
+    | '/account/$accountId/$applicationId/security'
+    | '/account/$accountId/$applicationId/services'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/sandbox'
     | '/api/demo-names'
     | '/api/demo-tq-todos'
-    | '/applications/create'
     | '/demo/clerk'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/account/$accountId/$applicationId'
+    | '/account/$accountId/create'
+    | '/account/$accountId/sandbox'
     | '/demo/form/address'
     | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/account/$accountId/$applicationId/insights'
+    | '/account/$accountId/$applicationId/keys'
+    | '/account/$accountId/$applicationId/logs'
+    | '/account/$accountId/$applicationId/security'
+    | '/account/$accountId/$applicationId/services'
   id:
     | '__root__'
     | '/'
-    | '/sandbox'
     | '/api/demo-names'
     | '/api/demo-tq-todos'
-    | '/applications/create'
     | '/demo/clerk'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/account/$accountId/$applicationId'
+    | '/account/$accountId/create'
+    | '/account/$accountId/sandbox'
     | '/demo/form/address'
     | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/account/$accountId/$applicationId/insights'
+    | '/account/$accountId/$applicationId/keys'
+    | '/account/$accountId/$applicationId/logs'
+    | '/account/$accountId/$applicationId/security'
+    | '/account/$accountId/$applicationId/services'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SandboxRoute: typeof SandboxRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
   ApiDemoTqTodosRoute: typeof ApiDemoTqTodosRoute
-  ApplicationsCreateRoute: typeof ApplicationsCreateRoute
   DemoClerkRoute: typeof DemoClerkRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  AccountAccountIdApplicationIdRouteRoute: typeof AccountAccountIdApplicationIdRouteRouteWithChildren
+  AccountAccountIdCreateRoute: typeof AccountAccountIdCreateRoute
+  AccountAccountIdSandboxRoute: typeof AccountAccountIdSandboxRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoSentryTestingRoute: typeof DemoSentryTestingRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
@@ -188,13 +267,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sandbox': {
-      id: '/sandbox'
-      path: '/sandbox'
-      fullPath: '/sandbox'
-      preLoaderRoute: typeof SandboxRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -221,13 +293,6 @@ declare module '@tanstack/react-router' {
       path: '/demo/clerk'
       fullPath: '/demo/clerk'
       preLoaderRoute: typeof DemoClerkRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/applications/create': {
-      id: '/applications/create'
-      path: '/applications/create'
-      fullPath: '/applications/create'
-      preLoaderRoute: typeof ApplicationsCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/demo-tq-todos': {
@@ -272,18 +337,103 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoFormAddressRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account/$accountId/sandbox': {
+      id: '/account/$accountId/sandbox'
+      path: '/account/$accountId/sandbox'
+      fullPath: '/account/$accountId/sandbox'
+      preLoaderRoute: typeof AccountAccountIdSandboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/$accountId/create': {
+      id: '/account/$accountId/create'
+      path: '/account/$accountId/create'
+      fullPath: '/account/$accountId/create'
+      preLoaderRoute: typeof AccountAccountIdCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/$accountId/$applicationId': {
+      id: '/account/$accountId/$applicationId'
+      path: '/account/$accountId/$applicationId'
+      fullPath: '/account/$accountId/$applicationId'
+      preLoaderRoute: typeof AccountAccountIdApplicationIdRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/$accountId/$applicationId/services': {
+      id: '/account/$accountId/$applicationId/services'
+      path: '/services'
+      fullPath: '/account/$accountId/$applicationId/services'
+      preLoaderRoute: typeof AccountAccountIdApplicationIdServicesRouteImport
+      parentRoute: typeof AccountAccountIdApplicationIdRouteRoute
+    }
+    '/account/$accountId/$applicationId/security': {
+      id: '/account/$accountId/$applicationId/security'
+      path: '/security'
+      fullPath: '/account/$accountId/$applicationId/security'
+      preLoaderRoute: typeof AccountAccountIdApplicationIdSecurityRouteImport
+      parentRoute: typeof AccountAccountIdApplicationIdRouteRoute
+    }
+    '/account/$accountId/$applicationId/logs': {
+      id: '/account/$accountId/$applicationId/logs'
+      path: '/logs'
+      fullPath: '/account/$accountId/$applicationId/logs'
+      preLoaderRoute: typeof AccountAccountIdApplicationIdLogsRouteImport
+      parentRoute: typeof AccountAccountIdApplicationIdRouteRoute
+    }
+    '/account/$accountId/$applicationId/keys': {
+      id: '/account/$accountId/$applicationId/keys'
+      path: '/keys'
+      fullPath: '/account/$accountId/$applicationId/keys'
+      preLoaderRoute: typeof AccountAccountIdApplicationIdKeysRouteImport
+      parentRoute: typeof AccountAccountIdApplicationIdRouteRoute
+    }
+    '/account/$accountId/$applicationId/insights': {
+      id: '/account/$accountId/$applicationId/insights'
+      path: '/insights'
+      fullPath: '/account/$accountId/$applicationId/insights'
+      preLoaderRoute: typeof AccountAccountIdApplicationIdInsightsRouteImport
+      parentRoute: typeof AccountAccountIdApplicationIdRouteRoute
+    }
   }
 }
 
+interface AccountAccountIdApplicationIdRouteRouteChildren {
+  AccountAccountIdApplicationIdInsightsRoute: typeof AccountAccountIdApplicationIdInsightsRoute
+  AccountAccountIdApplicationIdKeysRoute: typeof AccountAccountIdApplicationIdKeysRoute
+  AccountAccountIdApplicationIdLogsRoute: typeof AccountAccountIdApplicationIdLogsRoute
+  AccountAccountIdApplicationIdSecurityRoute: typeof AccountAccountIdApplicationIdSecurityRoute
+  AccountAccountIdApplicationIdServicesRoute: typeof AccountAccountIdApplicationIdServicesRoute
+}
+
+const AccountAccountIdApplicationIdRouteRouteChildren: AccountAccountIdApplicationIdRouteRouteChildren =
+  {
+    AccountAccountIdApplicationIdInsightsRoute:
+      AccountAccountIdApplicationIdInsightsRoute,
+    AccountAccountIdApplicationIdKeysRoute:
+      AccountAccountIdApplicationIdKeysRoute,
+    AccountAccountIdApplicationIdLogsRoute:
+      AccountAccountIdApplicationIdLogsRoute,
+    AccountAccountIdApplicationIdSecurityRoute:
+      AccountAccountIdApplicationIdSecurityRoute,
+    AccountAccountIdApplicationIdServicesRoute:
+      AccountAccountIdApplicationIdServicesRoute,
+  }
+
+const AccountAccountIdApplicationIdRouteRouteWithChildren =
+  AccountAccountIdApplicationIdRouteRoute._addFileChildren(
+    AccountAccountIdApplicationIdRouteRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SandboxRoute: SandboxRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
   ApiDemoTqTodosRoute: ApiDemoTqTodosRoute,
-  ApplicationsCreateRoute: ApplicationsCreateRoute,
   DemoClerkRoute: DemoClerkRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  AccountAccountIdApplicationIdRouteRoute:
+    AccountAccountIdApplicationIdRouteRouteWithChildren,
+  AccountAccountIdCreateRoute: AccountAccountIdCreateRoute,
+  AccountAccountIdSandboxRoute: AccountAccountIdSandboxRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoSentryTestingRoute: DemoSentryTestingRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
