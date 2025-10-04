@@ -10,7 +10,8 @@
     "test": "vitest run",
     "format": "biome format",
     "lint": "biome lint",
-    "check": "biome check"
+    "check": "biome check",
+    "generate": "openapi-generator-cli generate -g typescript-fetch -i ./src/fetching/openapi.json -o ./src/fetching/api"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.22.13",
@@ -55,6 +56,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@openapitools/openapi-generator-cli": "^2.24.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/node": "^22.10.2",

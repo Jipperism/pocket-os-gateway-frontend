@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { getApplicationsQuery } from "@/fetching/applications";
+import { getNetworksQuery } from "@/fetching/networks";
 import { useAppForm } from "@/hooks/form";
 import { json } from "@codemirror/lang-json";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { useStore } from "@tanstack/react-form";
-import { queryOptions } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { createFileRoute, useLoaderData } from "@tanstack/react-router";
 import CodeMirror from "@uiw/react-codemirror";
 import { Copy } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -20,34 +22,12 @@ export const Route = createFileRoute("/sandbox")({
 	component: RouteComponent,
 	loader: async ({ context }) => {
 		const { queryClient } = context;
-		const applications2 = await queryClient.ensureQueryData(getTest);
-		const [applications, chains] = await Promise.all([
-			getApplications(),
-			getChains(),
+		const [applications, networks] = await Promise.all([
+			queryClient.ensureQueryData(getApplicationsQuery),
+			queryClient.ensureQueryData(getNetworksQuery),
 		]);
-		return { applications, chains, applications2 };
+		return { applications, networks };
 	},
-});
-
-const getApplications = async () => {
-	return [
-		{ id: "1", name: "Test application", appmoji: "🐶" },
-		{ id: "2", name: "Test application 2", appmoji: "🎸" },
-		{ id: "3", name: "Test application 3", appmoji: "🎧" },
-	];
-};
-
-const getChains = async () => {
-	return [
-		{ id: "1", name: "Test chain" },
-		{ id: "2", name: "Test chain 2" },
-		{ id: "3", name: "Test chain 3" },
-	];
-};
-
-const getTest = queryOptions({
-	queryKey: ["posts"],
-	queryFn: () => getApplications(),
 });
 
 const schema = z.object({
@@ -83,6 +63,8 @@ const getEndpointUrl = (chain: string, application: string) => {
 };
 
 const FormComponent = () => {
+	const { data: applications } = useSuspenseQuery(getApplicationsQuery);
+	const { data: networks } = useSuspenseQuery(getNetworksQuery);
 	const [response, setResponse] = useState(null);
 	const form = useAppForm({
 		listeners: {
@@ -93,15 +75,17 @@ const FormComponent = () => {
 				) {
 					const chain = form.getFieldValue("chain");
 					const application = form.getFieldValue("application");
-					const endpointUrl = getEndpointUrl(chain, application);
 					form.setFieldValue("endpointUrl", getEndpointUrl(chain, application));
 				}
 			},
 		},
 		defaultValues: {
-			application: "e7dccbec",
-			chain: "akash",
-			endpointUrl: "https://akash.rpc.grove.city/v1/e7dccbec",
+			application: applications?.[0]?.portalApplicationId ?? "",
+			chain: networks?.[0]?.value ?? "",
+			endpointUrl: getEndpointUrl(
+				networks?.[0]?.value ?? "",
+				applications?.[0]?.portalApplicationId ?? "",
+			),
 			method: "POST",
 			path: "/",
 			includeSecretKey: false,
@@ -156,11 +140,12 @@ const FormComponent = () => {
 					{(field) => (
 						<field.Select
 							label="Application"
-							values={[
-								{ label: "🌱 pokt-status-test1", value: "e7dccbec" },
-								{ label: "🎸 Test application 2", value: "e7dccbec2" },
-								{ label: "🎧 Test application 3", value: "e7dccbec3" },
-							]}
+							values={
+								applications?.map((application) => ({
+									label: application.portalApplicationName ?? "",
+									value: application.portalApplicationId,
+								})) ?? []
+							}
 							placeholder="Application"
 						/>
 					)}
@@ -170,15 +155,12 @@ const FormComponent = () => {
 					{(field) => (
 						<field.Select
 							label="Chain"
-							values={[
-								{
-									label: "Akash Network",
-									value: "akash",
-								},
-								{ label: "Ethereum", value: "ethereum" },
-								{ label: "Polygon", value: "polygon" },
-								{ label: "BNB Smart Chain", value: "bsc" },
-							]}
+							values={
+								networks?.map((network) => ({
+									label: network.label,
+									value: network.value,
+								})) ?? []
+							}
 							placeholder="Chain"
 						/>
 					)}
@@ -314,16 +296,18 @@ const FormComponent = () => {
 			</div>
 
 			{/* Response Section */}
-			<div className="space-y-4">
-				<Label>Response</Label>
-				<CodeMirror
-					value={JSON.stringify(response, null, 2)}
-					extensions={[json()]}
-					theme={oneDark}
-					className="rounded-md border"
-					readOnly
-				/>
-			</div>
+			{response && (
+				<div className="space-y-4">
+					<Label>Response</Label>
+					<CodeMirror
+						value={JSON.stringify(response, null, 2)}
+						extensions={[json()]}
+						theme={oneDark}
+						className="rounded-md border"
+						readOnly
+					/>
+				</div>
+			)}
 		</form>
 	);
 };
