@@ -154,7 +154,7 @@ function RouteComponent() {
 		[handleMarkAsFavorite],
 	);
 
-	const handlePlayService = useCallback((service: ServiceRow) => {
+	const handleClickTestService = useCallback((service: ServiceRow) => {
 		setSelectedService(service);
 		setIsDrawerOpen(true);
 	}, []);
@@ -225,7 +225,7 @@ function RouteComponent() {
 							variant="ghost"
 							size="icon"
 							className="text-gray-400 hover:text-white"
-							onClick={() => handlePlayService(row.original)}
+							onClick={() => handleClickTestService(row.original)}
 						>
 							<Play className="h-4 w-4" />
 						</Button>
@@ -263,7 +263,7 @@ function RouteComponent() {
 				size: 150,
 			}),
 		],
-		[toggleFavorite, handleMarkAsFavorite, handlePlayService],
+		[toggleFavorite, handleMarkAsFavorite, handleClickTestService],
 	);
 
 	// Create table instance
