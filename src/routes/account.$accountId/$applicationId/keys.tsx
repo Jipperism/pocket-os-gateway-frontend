@@ -1,5 +1,7 @@
 import { CopyableInput } from "@/components/common/CopyableInput";
 import { HideableInput } from "@/components/common/HideableInput";
+import { SectionHeader } from "@/components/common/SectionHeader";
+import { Separator } from "@/components/ui/separator";
 import { getApplicationsByApplicationIdQuery } from "@/fetching/applications";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -29,26 +31,21 @@ function RouteComponent() {
 		<div className="p-6 space-y-8">
 			{/* App ID Section */}
 			<div className="space-y-3">
-				<div>
-					<h3 className="text-lg font-semibold">App ID</h3>
-					<p className="text-sm text-gray-600">
-						Unique identifier for the app. This string is included as part of
-						the URL for each endpoint.
-					</p>
-				</div>
+				<SectionHeader
+					title="App ID"
+					description="Unique identifier for the app. This string is included as part of the URL for each endpoint."
+				/>
 				<CopyableInput value={appId} />
 			</div>
 
+			<Separator />
+
 			{/* Secret Key Section */}
 			<div className="space-y-3">
-				<div>
-					<h3 className="text-lg font-semibold">Secret Key</h3>
-					<p className="text-sm text-gray-600">
-						Security feature for apps. If "Private Secret Key Required" is
-						selected in the security settings, the secret key will need to be
-						sent along with the request using HTTP Basic Authentication.
-					</p>
-				</div>
+				<SectionHeader
+					title="Secret Key"
+					description="Security feature for apps. If 'Private Secret Key Required' is selected in the security settings, the secret key will need to be sent along with the request using HTTP Basic Authentication."
+				/>
 				<HideableInput value={secretKey} />
 			</div>
 		</div>

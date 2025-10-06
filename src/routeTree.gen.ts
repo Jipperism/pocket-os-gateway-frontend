@@ -21,7 +21,12 @@ import { Route as DemoSentryTestingRouteImport } from './routes/demo.sentry.test
 import { Route as DemoFormAddressRouteImport } from './routes/demo.form.address'
 import { Route as AccountAccountIdSandboxRouteImport } from './routes/account.$accountId/sandbox'
 import { Route as AccountAccountIdCreateRouteImport } from './routes/account.$accountId/create'
+import { Route as AccountAccountIdSettingsRouteRouteImport } from './routes/account.$accountId/settings/route'
 import { Route as AccountAccountIdApplicationIdRouteRouteImport } from './routes/account.$accountId/$applicationId/route'
+import { Route as AccountAccountIdSettingsPlanRouteImport } from './routes/account.$accountId/settings/plan'
+import { Route as AccountAccountIdSettingsNotificationsRouteImport } from './routes/account.$accountId/settings/notifications'
+import { Route as AccountAccountIdSettingsMembersRouteImport } from './routes/account.$accountId/settings/members'
+import { Route as AccountAccountIdSettingsAccountRouteImport } from './routes/account.$accountId/settings/account'
 import { Route as AccountAccountIdApplicationIdServicesRouteImport } from './routes/account.$accountId/$applicationId/services'
 import { Route as AccountAccountIdApplicationIdSecurityRouteImport } from './routes/account.$accountId/$applicationId/security'
 import { Route as AccountAccountIdApplicationIdLogsRouteImport } from './routes/account.$accountId/$applicationId/logs'
@@ -88,11 +93,41 @@ const AccountAccountIdCreateRoute = AccountAccountIdCreateRouteImport.update({
   path: '/account/$accountId/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountAccountIdSettingsRouteRoute =
+  AccountAccountIdSettingsRouteRouteImport.update({
+    id: '/account/$accountId/settings',
+    path: '/account/$accountId/settings',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AccountAccountIdApplicationIdRouteRoute =
   AccountAccountIdApplicationIdRouteRouteImport.update({
     id: '/account/$accountId/$applicationId',
     path: '/account/$accountId/$applicationId',
     getParentRoute: () => rootRouteImport,
+  } as any)
+const AccountAccountIdSettingsPlanRoute =
+  AccountAccountIdSettingsPlanRouteImport.update({
+    id: '/plan',
+    path: '/plan',
+    getParentRoute: () => AccountAccountIdSettingsRouteRoute,
+  } as any)
+const AccountAccountIdSettingsNotificationsRoute =
+  AccountAccountIdSettingsNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AccountAccountIdSettingsRouteRoute,
+  } as any)
+const AccountAccountIdSettingsMembersRoute =
+  AccountAccountIdSettingsMembersRouteImport.update({
+    id: '/members',
+    path: '/members',
+    getParentRoute: () => AccountAccountIdSettingsRouteRoute,
+  } as any)
+const AccountAccountIdSettingsAccountRoute =
+  AccountAccountIdSettingsAccountRouteImport.update({
+    id: '/account',
+    path: '/account',
+    getParentRoute: () => AccountAccountIdSettingsRouteRoute,
   } as any)
 const AccountAccountIdApplicationIdServicesRoute =
   AccountAccountIdApplicationIdServicesRouteImport.update({
@@ -133,6 +168,7 @@ export interface FileRoutesByFullPath {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/account/$accountId/$applicationId': typeof AccountAccountIdApplicationIdRouteRouteWithChildren
+  '/account/$accountId/settings': typeof AccountAccountIdSettingsRouteRouteWithChildren
   '/account/$accountId/create': typeof AccountAccountIdCreateRoute
   '/account/$accountId/sandbox': typeof AccountAccountIdSandboxRoute
   '/demo/form/address': typeof DemoFormAddressRoute
@@ -144,6 +180,10 @@ export interface FileRoutesByFullPath {
   '/account/$accountId/$applicationId/logs': typeof AccountAccountIdApplicationIdLogsRoute
   '/account/$accountId/$applicationId/security': typeof AccountAccountIdApplicationIdSecurityRoute
   '/account/$accountId/$applicationId/services': typeof AccountAccountIdApplicationIdServicesRoute
+  '/account/$accountId/settings/account': typeof AccountAccountIdSettingsAccountRoute
+  '/account/$accountId/settings/members': typeof AccountAccountIdSettingsMembersRoute
+  '/account/$accountId/settings/notifications': typeof AccountAccountIdSettingsNotificationsRoute
+  '/account/$accountId/settings/plan': typeof AccountAccountIdSettingsPlanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -153,6 +193,7 @@ export interface FileRoutesByTo {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/account/$accountId/$applicationId': typeof AccountAccountIdApplicationIdRouteRouteWithChildren
+  '/account/$accountId/settings': typeof AccountAccountIdSettingsRouteRouteWithChildren
   '/account/$accountId/create': typeof AccountAccountIdCreateRoute
   '/account/$accountId/sandbox': typeof AccountAccountIdSandboxRoute
   '/demo/form/address': typeof DemoFormAddressRoute
@@ -164,6 +205,10 @@ export interface FileRoutesByTo {
   '/account/$accountId/$applicationId/logs': typeof AccountAccountIdApplicationIdLogsRoute
   '/account/$accountId/$applicationId/security': typeof AccountAccountIdApplicationIdSecurityRoute
   '/account/$accountId/$applicationId/services': typeof AccountAccountIdApplicationIdServicesRoute
+  '/account/$accountId/settings/account': typeof AccountAccountIdSettingsAccountRoute
+  '/account/$accountId/settings/members': typeof AccountAccountIdSettingsMembersRoute
+  '/account/$accountId/settings/notifications': typeof AccountAccountIdSettingsNotificationsRoute
+  '/account/$accountId/settings/plan': typeof AccountAccountIdSettingsPlanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -174,6 +219,7 @@ export interface FileRoutesById {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/account/$accountId/$applicationId': typeof AccountAccountIdApplicationIdRouteRouteWithChildren
+  '/account/$accountId/settings': typeof AccountAccountIdSettingsRouteRouteWithChildren
   '/account/$accountId/create': typeof AccountAccountIdCreateRoute
   '/account/$accountId/sandbox': typeof AccountAccountIdSandboxRoute
   '/demo/form/address': typeof DemoFormAddressRoute
@@ -185,6 +231,10 @@ export interface FileRoutesById {
   '/account/$accountId/$applicationId/logs': typeof AccountAccountIdApplicationIdLogsRoute
   '/account/$accountId/$applicationId/security': typeof AccountAccountIdApplicationIdSecurityRoute
   '/account/$accountId/$applicationId/services': typeof AccountAccountIdApplicationIdServicesRoute
+  '/account/$accountId/settings/account': typeof AccountAccountIdSettingsAccountRoute
+  '/account/$accountId/settings/members': typeof AccountAccountIdSettingsMembersRoute
+  '/account/$accountId/settings/notifications': typeof AccountAccountIdSettingsNotificationsRoute
+  '/account/$accountId/settings/plan': typeof AccountAccountIdSettingsPlanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -196,6 +246,7 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/account/$accountId/$applicationId'
+    | '/account/$accountId/settings'
     | '/account/$accountId/create'
     | '/account/$accountId/sandbox'
     | '/demo/form/address'
@@ -207,6 +258,10 @@ export interface FileRouteTypes {
     | '/account/$accountId/$applicationId/logs'
     | '/account/$accountId/$applicationId/security'
     | '/account/$accountId/$applicationId/services'
+    | '/account/$accountId/settings/account'
+    | '/account/$accountId/settings/members'
+    | '/account/$accountId/settings/notifications'
+    | '/account/$accountId/settings/plan'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -216,6 +271,7 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/account/$accountId/$applicationId'
+    | '/account/$accountId/settings'
     | '/account/$accountId/create'
     | '/account/$accountId/sandbox'
     | '/demo/form/address'
@@ -227,6 +283,10 @@ export interface FileRouteTypes {
     | '/account/$accountId/$applicationId/logs'
     | '/account/$accountId/$applicationId/security'
     | '/account/$accountId/$applicationId/services'
+    | '/account/$accountId/settings/account'
+    | '/account/$accountId/settings/members'
+    | '/account/$accountId/settings/notifications'
+    | '/account/$accountId/settings/plan'
   id:
     | '__root__'
     | '/'
@@ -236,6 +296,7 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/account/$accountId/$applicationId'
+    | '/account/$accountId/settings'
     | '/account/$accountId/create'
     | '/account/$accountId/sandbox'
     | '/demo/form/address'
@@ -247,6 +308,10 @@ export interface FileRouteTypes {
     | '/account/$accountId/$applicationId/logs'
     | '/account/$accountId/$applicationId/security'
     | '/account/$accountId/$applicationId/services'
+    | '/account/$accountId/settings/account'
+    | '/account/$accountId/settings/members'
+    | '/account/$accountId/settings/notifications'
+    | '/account/$accountId/settings/plan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -257,6 +322,7 @@ export interface RootRouteChildren {
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   AccountAccountIdApplicationIdRouteRoute: typeof AccountAccountIdApplicationIdRouteRouteWithChildren
+  AccountAccountIdSettingsRouteRoute: typeof AccountAccountIdSettingsRouteRouteWithChildren
   AccountAccountIdCreateRoute: typeof AccountAccountIdCreateRoute
   AccountAccountIdSandboxRoute: typeof AccountAccountIdSandboxRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
@@ -351,12 +417,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccountAccountIdCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account/$accountId/settings': {
+      id: '/account/$accountId/settings'
+      path: '/account/$accountId/settings'
+      fullPath: '/account/$accountId/settings'
+      preLoaderRoute: typeof AccountAccountIdSettingsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/account/$accountId/$applicationId': {
       id: '/account/$accountId/$applicationId'
       path: '/account/$accountId/$applicationId'
       fullPath: '/account/$accountId/$applicationId'
       preLoaderRoute: typeof AccountAccountIdApplicationIdRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/account/$accountId/settings/plan': {
+      id: '/account/$accountId/settings/plan'
+      path: '/plan'
+      fullPath: '/account/$accountId/settings/plan'
+      preLoaderRoute: typeof AccountAccountIdSettingsPlanRouteImport
+      parentRoute: typeof AccountAccountIdSettingsRouteRoute
+    }
+    '/account/$accountId/settings/notifications': {
+      id: '/account/$accountId/settings/notifications'
+      path: '/notifications'
+      fullPath: '/account/$accountId/settings/notifications'
+      preLoaderRoute: typeof AccountAccountIdSettingsNotificationsRouteImport
+      parentRoute: typeof AccountAccountIdSettingsRouteRoute
+    }
+    '/account/$accountId/settings/members': {
+      id: '/account/$accountId/settings/members'
+      path: '/members'
+      fullPath: '/account/$accountId/settings/members'
+      preLoaderRoute: typeof AccountAccountIdSettingsMembersRouteImport
+      parentRoute: typeof AccountAccountIdSettingsRouteRoute
+    }
+    '/account/$accountId/settings/account': {
+      id: '/account/$accountId/settings/account'
+      path: '/account'
+      fullPath: '/account/$accountId/settings/account'
+      preLoaderRoute: typeof AccountAccountIdSettingsAccountRouteImport
+      parentRoute: typeof AccountAccountIdSettingsRouteRoute
     }
     '/account/$accountId/$applicationId/services': {
       id: '/account/$accountId/$applicationId/services'
@@ -423,6 +524,27 @@ const AccountAccountIdApplicationIdRouteRouteWithChildren =
     AccountAccountIdApplicationIdRouteRouteChildren,
   )
 
+interface AccountAccountIdSettingsRouteRouteChildren {
+  AccountAccountIdSettingsAccountRoute: typeof AccountAccountIdSettingsAccountRoute
+  AccountAccountIdSettingsMembersRoute: typeof AccountAccountIdSettingsMembersRoute
+  AccountAccountIdSettingsNotificationsRoute: typeof AccountAccountIdSettingsNotificationsRoute
+  AccountAccountIdSettingsPlanRoute: typeof AccountAccountIdSettingsPlanRoute
+}
+
+const AccountAccountIdSettingsRouteRouteChildren: AccountAccountIdSettingsRouteRouteChildren =
+  {
+    AccountAccountIdSettingsAccountRoute: AccountAccountIdSettingsAccountRoute,
+    AccountAccountIdSettingsMembersRoute: AccountAccountIdSettingsMembersRoute,
+    AccountAccountIdSettingsNotificationsRoute:
+      AccountAccountIdSettingsNotificationsRoute,
+    AccountAccountIdSettingsPlanRoute: AccountAccountIdSettingsPlanRoute,
+  }
+
+const AccountAccountIdSettingsRouteRouteWithChildren =
+  AccountAccountIdSettingsRouteRoute._addFileChildren(
+    AccountAccountIdSettingsRouteRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
@@ -432,6 +554,8 @@ const rootRouteChildren: RootRouteChildren = {
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   AccountAccountIdApplicationIdRouteRoute:
     AccountAccountIdApplicationIdRouteRouteWithChildren,
+  AccountAccountIdSettingsRouteRoute:
+    AccountAccountIdSettingsRouteRouteWithChildren,
   AccountAccountIdCreateRoute: AccountAccountIdCreateRoute,
   AccountAccountIdSandboxRoute: AccountAccountIdSandboxRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,

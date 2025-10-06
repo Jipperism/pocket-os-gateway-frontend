@@ -4,6 +4,7 @@ import { Check, ChevronsUpDown, Copy, Plus, Trash2 } from "lucide-react";
 import * as React from "react";
 import { z } from "zod";
 
+import { SectionHeader } from "@/components/common/SectionHeader";
 import { Button } from "@/components/ui/button";
 import {
 	Command,
@@ -140,13 +141,11 @@ export function WhitelistMethodsContent({
 	return (
 		<div className="h-full flex flex-col">
 			{/* Header */}
-			<div className="flex items-center justify-between mb-6 p-6 border-b border-gray-700">
-				<div>
-					<h2 className="text-2xl font-bold text-white">Whitelist Methods</h2>
-					<p className="text-gray-300 text-sm mt-1">
-						Limits requests to use specific RPC methods.
-					</p>
-				</div>
+			<div className="mb-6 p-6 border-b border-gray-700">
+				<SectionHeader
+					title="Whitelist Methods"
+					description="Limits requests to use specific RPC methods."
+				/>
 			</div>
 
 			<div className="flex-1 p-6 overflow-y-auto">

@@ -69,6 +69,16 @@ export function AppSidebar() {
 						<SidebarMenu>
 							<SidebarMenuItem className="pl-2">
 								<SidebarMenuButton asChild>
+									<Link
+										to="/account/$accountId/settings/account"
+										params={{ accountId }}
+									>
+										Settings
+									</Link>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+							<SidebarMenuItem className="pl-2">
+								<SidebarMenuButton asChild>
 									<Link to="/account/$accountId/sandbox" params={{ accountId }}>
 										Sandbox
 									</Link>

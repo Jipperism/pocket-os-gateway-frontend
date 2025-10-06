@@ -4,6 +4,7 @@ import {
 	EmojiPicker,
 	Select,
 	SubscribeButton,
+	Switch,
 	TextArea,
 	TextField,
 } from "@/components/forms/FormComponents";
@@ -14,6 +15,7 @@ export const { useAppForm } = createFormHook({
 		TextField,
 		Select,
 		TextArea,
+		Switch,
 		EmojiPicker,
 	},
 	formComponents: {

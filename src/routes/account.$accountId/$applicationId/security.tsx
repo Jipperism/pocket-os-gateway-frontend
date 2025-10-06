@@ -1,3 +1,4 @@
+import { SectionHeader } from "@/components/common/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
@@ -25,12 +26,10 @@ function RouteComponent() {
 		<div className="p-6 space-y-6">
 			{/* Secret Key Required Section */}
 			<div className="space-y-3">
-				<h3 className="text-lg font-semibold">Secret Key Required</h3>
-				<p className="text-gray-400 text-sm">
-					To maximize the security of your application, you should activate the
-					private secret key for all requests and enable the use of whitelisted
-					user-agents and origins.
-				</p>
+				<SectionHeader
+					title="Secret Key Required"
+					description="To maximize the security of your application, you should activate the private secret key for all requests and enable the use of whitelisted user-agents and origins."
+				/>
 				<Switch
 					checked={secretKeyRequired}
 					onCheckedChange={setSecretKeyRequired}
@@ -41,10 +40,10 @@ function RouteComponent() {
 
 			{/* Whitelist Services Section */}
 			<div className="space-y-3">
-				<h3 className="text-lg font-semibold">Whitelist Services</h3>
-				<p className="text-gray-400 text-sm">
-					Limit the services that can be used for this application.
-				</p>
+				<SectionHeader
+					title="Whitelist Services"
+					description="Limit the services that can be used for this application."
+				/>
 				<Drawer direction="right">
 					<DrawerTrigger asChild>
 						<Button type="button" variant="outline">
@@ -61,11 +60,10 @@ function RouteComponent() {
 
 			{/* Whitelist User-Agents Section */}
 			<div className="space-y-3">
-				<h3 className="text-lg font-semibold">Whitelist User-Agents</h3>
-				<p className="text-gray-400 text-sm">
-					Limits requests to only the HTTP User-Agents specified. If nothing is
-					specified, all User-Agents will be accepted.
-				</p>
+				<SectionHeader
+					title="Whitelist User-Agents"
+					description="Limits requests to only the HTTP User-Agents specified. If nothing is specified, all User-Agents will be accepted."
+				/>
 				<Drawer direction="right">
 					<DrawerTrigger asChild>
 						<Button type="button" variant="outline">
@@ -82,10 +80,10 @@ function RouteComponent() {
 
 			{/* Whitelist Origins Section */}
 			<div className="space-y-3">
-				<h3 className="text-lg font-semibold">Whitelist Origins</h3>
-				<p className="text-gray-400 text-sm">
-					Limits requests to only the HTTP Origins specified.
-				</p>
+				<SectionHeader
+					title="Whitelist Origins"
+					description="Limits requests to only the HTTP Origins specified."
+				/>
 				<Drawer direction="right">
 					<DrawerTrigger asChild>
 						<Button type="button" variant="outline">
@@ -102,10 +100,10 @@ function RouteComponent() {
 
 			{/* Whitelist Contracts Section */}
 			<div className="space-y-3">
-				<h3 className="text-lg font-semibold">Whitelist Contracts</h3>
-				<p className="text-gray-400 text-sm">
-					Limits requests to the smart contract addresses specified.
-				</p>
+				<SectionHeader
+					title="Whitelist Contracts"
+					description="Limits requests to the smart contract addresses specified."
+				/>
 				<Drawer direction="right">
 					<DrawerTrigger asChild>
 						<Button type="button" variant="outline">
@@ -122,10 +120,10 @@ function RouteComponent() {
 
 			{/* Whitelist Methods Section */}
 			<div className="space-y-3">
-				<h3 className="text-lg font-semibold">Whitelist Methods</h3>
-				<p className="text-gray-400 text-sm">
-					Limits requests to use specific RPC methods.
-				</p>
+				<SectionHeader
+					title="Whitelist Methods"
+					description="Limits requests to use specific RPC methods."
+				/>
 				<Drawer direction="right">
 					<DrawerTrigger asChild>
 						<Button type="button" variant="outline">
