@@ -55,29 +55,25 @@ export function InviteMemberContent() {
 					{/* Email Field */}
 					<form.AppField name="email">
 						{(field) => (
-							<div className="space-y-2">
-								<field.TextField
-									label="Email address *"
-									subLabel="Required"
-									placeholder="new@server.com"
-								/>
-							</div>
+							<field.TextField
+								label="Email address *"
+								subLabel="Required"
+								placeholder="new@server.com"
+							/>
 						)}
 					</form.AppField>
 
 					{/* Role Field */}
 					<form.AppField name="role">
 						{(field) => (
-							<div className="space-y-2">
-								<field.Select
-									label="Role *"
-									values={[
-										{ label: "Member", value: "member" },
-										{ label: "Admin", value: "admin" },
-									]}
-									placeholder="Select a role"
-								/>
-							</div>
+							<field.Select
+								label="Role *"
+								values={[
+									{ label: "Member", value: "member" },
+									{ label: "Admin", value: "admin" },
+								]}
+								placeholder="Select a role"
+							/>
 						)}
 					</form.AppField>
 				</form>

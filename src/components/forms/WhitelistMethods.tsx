@@ -1,28 +1,15 @@
 "use client";
 
-import { Check, ChevronsUpDown, Copy, Plus, Trash2 } from "lucide-react";
-import * as React from "react";
+import { Copy, Plus, Trash2 } from "lucide-react";
 import { z } from "zod";
 
 import { SectionHeader } from "@/components/common/SectionHeader";
+import { ServiceSelector } from "@/components/forms/ServiceSelector";
 import { Button } from "@/components/ui/button";
-import {
-	Command,
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-	CommandList,
-} from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
+import type { Services } from "@/fetching/api";
 import { getServicesQuery } from "@/fetching/services";
 import { useAppForm } from "@/hooks/form";
-import { cn } from "@/lib/utils";
 import { useStore } from "@tanstack/react-form";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
@@ -58,8 +45,6 @@ export function WhitelistMethodsContent({
 	portalApplicationId: _portalApplicationId,
 }: WhitelistMethodsProps) {
 	const { data: services } = useSuspenseQuery(getServicesQuery);
-	const [open, setOpen] = React.useState(false);
-	const [searchValue, setSearchValue] = React.useState("");
 
 	const form = useAppForm({
 		defaultValues: {
@@ -75,10 +60,8 @@ export function WhitelistMethodsContent({
 		},
 	});
 
-	const handleServiceSelect = (serviceId: string) => {
-		form.setFieldValue("selectedServiceId", serviceId);
-		setOpen(false);
-		setSearchValue("");
+	const handleServiceSelect = (service: Services) => {
+		form.setFieldValue("selectedServiceId", service.serviceId);
 	};
 
 	const handleAddMethod = () => {
@@ -134,10 +117,6 @@ export function WhitelistMethodsContent({
 	);
 	const methodName = useStore(form.store, (state) => state.values.methodName);
 
-	const selectedService = services?.find(
-		(s) => s.serviceId === selectedServiceId,
-	);
-
 	return (
 		<div className="h-full flex flex-col">
 			{/* Header */}
@@ -154,81 +133,11 @@ export function WhitelistMethodsContent({
 					<div className="flex gap-3">
 						{/* Service Selection */}
 						<div className="flex-1">
-							<Popover open={open} onOpenChange={setOpen}>
-								<PopoverTrigger asChild>
-									<Button
-										variant="outline"
-										aria-expanded={open}
-										className="w-full justify-between bg-gray-800 border-gray-600 text-white hover:bg-gray-700"
-									>
-										<div className="flex items-center gap-2">
-											<svg
-												className="h-4 w-4 text-gray-400"
-												fill="none"
-												stroke="currentColor"
-												viewBox="0 0 24 24"
-												aria-label="Search icon"
-											>
-												<title>Search</title>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													strokeWidth={2}
-													d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-												/>
-											</svg>
-											{selectedService
-												? selectedService.serviceName
-												: "Search Service"}
-										</div>
-										<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-									</Button>
-								</PopoverTrigger>
-								<PopoverContent className="w-full p-0 bg-gray-800 border-gray-600">
-									<Command>
-										<CommandInput
-											placeholder="Search Service..."
-											value={searchValue}
-											onValueChange={setSearchValue}
-										/>
-										<CommandList>
-											<CommandEmpty>No service found.</CommandEmpty>
-											<CommandGroup>
-												{services?.map((service) => (
-													<CommandItem
-														key={service.serviceId}
-														value={service.serviceName}
-														onSelect={() =>
-															handleServiceSelect(service.serviceId)
-														}
-														className="text-white hover:bg-gray-700"
-													>
-														<div className="flex items-center gap-2">
-															<span className="text-lg">{service.svgIcon}</span>
-															<div>
-																<div className="font-medium">
-																	{service.serviceName}
-																</div>
-																<div className="text-sm text-gray-400">
-																	{service.serviceName}
-																</div>
-															</div>
-														</div>
-														<Check
-															className={cn(
-																"ml-auto h-4 w-4",
-																selectedServiceId === service.serviceId
-																	? "opacity-100"
-																	: "opacity-0",
-															)}
-														/>
-													</CommandItem>
-												))}
-											</CommandGroup>
-										</CommandList>
-									</Command>
-								</PopoverContent>
-							</Popover>
+							<ServiceSelector
+								selectedServiceId={selectedServiceId}
+								onServiceSelect={handleServiceSelect}
+								placeholder="Search Service"
+							/>
 						</div>
 
 						{/* Method Name Input */}

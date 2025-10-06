@@ -25,116 +25,104 @@ function RouteComponent() {
 	return (
 		<div className="p-6 space-y-6">
 			{/* Secret Key Required Section */}
-			<div className="space-y-3">
-				<SectionHeader
-					title="Secret Key Required"
-					description="To maximize the security of your application, you should activate the private secret key for all requests and enable the use of whitelisted user-agents and origins."
-				/>
-				<Switch
-					checked={secretKeyRequired}
-					onCheckedChange={setSecretKeyRequired}
-				/>
-			</div>
+			<SectionHeader
+				title="Secret Key Required"
+				description="To maximize the security of your application, you should activate the private secret key for all requests and enable the use of whitelisted user-agents and origins."
+			/>
+			<Switch
+				checked={secretKeyRequired}
+				onCheckedChange={setSecretKeyRequired}
+			/>
 
 			<Separator />
 
 			{/* Whitelist Services Section */}
-			<div className="space-y-3">
-				<SectionHeader
-					title="Whitelist Services"
-					description="Limit the services that can be used for this application."
-				/>
-				<Drawer direction="right">
-					<DrawerTrigger asChild>
-						<Button type="button" variant="outline">
-							Add +
-						</Button>
-					</DrawerTrigger>
-					<DrawerContent className="!w-fit !max-w-fit">
-						<WhitelistServicesContent portalApplicationId={applicationId} />
-					</DrawerContent>
-				</Drawer>
-			</div>
+			<SectionHeader
+				title="Whitelist Services"
+				description="Limit the services that can be used for this application."
+			/>
+			<Drawer direction="right">
+				<DrawerTrigger asChild>
+					<Button type="button" variant="outline">
+						Add +
+					</Button>
+				</DrawerTrigger>
+				<DrawerContent className="!w-fit !max-w-fit">
+					<WhitelistServicesContent portalApplicationId={applicationId} />
+				</DrawerContent>
+			</Drawer>
 
 			<Separator />
 
 			{/* Whitelist User-Agents Section */}
-			<div className="space-y-3">
-				<SectionHeader
-					title="Whitelist User-Agents"
-					description="Limits requests to only the HTTP User-Agents specified. If nothing is specified, all User-Agents will be accepted."
-				/>
-				<Drawer direction="right">
-					<DrawerTrigger asChild>
-						<Button type="button" variant="outline">
-							Add +
-						</Button>
-					</DrawerTrigger>
-					<DrawerContent className="!w-fit !max-w-fit">
-						<WhitelistUserAgentsContent portalApplicationId={applicationId} />
-					</DrawerContent>
-				</Drawer>
-			</div>
+			<SectionHeader
+				title="Whitelist User-Agents"
+				description="Limits requests to only the HTTP User-Agents specified. If nothing is specified, all User-Agents will be accepted."
+			/>
+			<Drawer direction="right">
+				<DrawerTrigger asChild>
+					<Button type="button" variant="outline">
+						Add +
+					</Button>
+				</DrawerTrigger>
+				<DrawerContent className="!w-fit !max-w-fit">
+					<WhitelistUserAgentsContent portalApplicationId={applicationId} />
+				</DrawerContent>
+			</Drawer>
 
 			<Separator />
 
 			{/* Whitelist Origins Section */}
-			<div className="space-y-3">
-				<SectionHeader
-					title="Whitelist Origins"
-					description="Limits requests to only the HTTP Origins specified."
-				/>
-				<Drawer direction="right">
-					<DrawerTrigger asChild>
-						<Button type="button" variant="outline">
-							Add +
-						</Button>
-					</DrawerTrigger>
-					<DrawerContent className="!w-fit !max-w-fit">
-						<WhitelistOriginsContent portalApplicationId={applicationId} />
-					</DrawerContent>
-				</Drawer>
-			</div>
+			<SectionHeader
+				title="Whitelist Origins"
+				description="Limits requests to only the HTTP Origins specified."
+			/>
+			<Drawer direction="right">
+				<DrawerTrigger asChild>
+					<Button type="button" variant="outline">
+						Add +
+					</Button>
+				</DrawerTrigger>
+				<DrawerContent className="!w-fit !max-w-fit">
+					<WhitelistOriginsContent portalApplicationId={applicationId} />
+				</DrawerContent>
+			</Drawer>
 
 			<Separator />
 
 			{/* Whitelist Contracts Section */}
-			<div className="space-y-3">
-				<SectionHeader
-					title="Whitelist Contracts"
-					description="Limits requests to the smart contract addresses specified."
-				/>
-				<Drawer direction="right">
-					<DrawerTrigger asChild>
-						<Button type="button" variant="outline">
-							Add +
-						</Button>
-					</DrawerTrigger>
-					<DrawerContent className="!w-fit !max-w-fit">
-						<WhitelistContractsContent portalApplicationId={applicationId} />
-					</DrawerContent>
-				</Drawer>
-			</div>
+			<SectionHeader
+				title="Whitelist Contracts"
+				description="Limits requests to the smart contract addresses specified."
+			/>
+			<Drawer direction="right">
+				<DrawerTrigger asChild>
+					<Button type="button" variant="outline">
+						Add +
+					</Button>
+				</DrawerTrigger>
+				<DrawerContent className="!w-fit !max-w-fit">
+					<WhitelistContractsContent portalApplicationId={applicationId} />
+				</DrawerContent>
+			</Drawer>
 
 			<Separator />
 
 			{/* Whitelist Methods Section */}
-			<div className="space-y-3">
-				<SectionHeader
-					title="Whitelist Methods"
-					description="Limits requests to use specific RPC methods."
-				/>
-				<Drawer direction="right">
-					<DrawerTrigger asChild>
-						<Button type="button" variant="outline">
-							Add +
-						</Button>
-					</DrawerTrigger>
-					<DrawerContent className="!w-fit !max-w-fit">
-						<WhitelistMethodsContent portalApplicationId={applicationId} />
-					</DrawerContent>
-				</Drawer>
-			</div>
+			<SectionHeader
+				title="Whitelist Methods"
+				description="Limits requests to use specific RPC methods."
+			/>
+			<Drawer direction="right">
+				<DrawerTrigger asChild>
+					<Button type="button" variant="outline">
+						Add +
+					</Button>
+				</DrawerTrigger>
+				<DrawerContent className="!w-fit !max-w-fit">
+					<WhitelistMethodsContent portalApplicationId={applicationId} />
+				</DrawerContent>
+			</Drawer>
 		</div>
 	);
 }

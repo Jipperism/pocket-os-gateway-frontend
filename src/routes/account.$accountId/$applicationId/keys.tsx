@@ -30,24 +30,20 @@ function RouteComponent() {
 	return (
 		<div className="p-6 space-y-8">
 			{/* App ID Section */}
-			<div className="space-y-3">
-				<SectionHeader
-					title="App ID"
-					description="Unique identifier for the app. This string is included as part of the URL for each endpoint."
-				/>
-				<CopyableInput value={appId} />
-			</div>
+			<SectionHeader
+				title="App ID"
+				description="Unique identifier for the app. This string is included as part of the URL for each endpoint."
+			/>
+			<CopyableInput value={appId} />
 
 			<Separator />
 
 			{/* Secret Key Section */}
-			<div className="space-y-3">
-				<SectionHeader
-					title="Secret Key"
-					description="Security feature for apps. If 'Private Secret Key Required' is selected in the security settings, the secret key will need to be sent along with the request using HTTP Basic Authentication."
-				/>
-				<HideableInput value={secretKey} />
-			</div>
+			<SectionHeader
+				title="Secret Key"
+				description="Security feature for apps. If 'Private Secret Key Required' is selected in the security settings, the secret key will need to be sent along with the request using HTTP Basic Authentication."
+			/>
+			<HideableInput value={secretKey} />
 		</div>
 	);
 }
