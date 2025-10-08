@@ -1,5 +1,6 @@
 import { USE_DUMMY_DATA } from "@/lib/constants";
 import { queryOptions } from "@tanstack/react-query";
+import { notFound } from "@tanstack/react-router";
 import { type PortalAccounts, PortalAccountsApi } from "./api";
 
 const dummyAccount: PortalAccounts = {
@@ -20,20 +21,23 @@ const dummyAccount: PortalAccounts = {
 };
 
 const accountFetcher = async (accountId: string) => {
+	let result: PortalAccounts | undefined;
 	if (USE_DUMMY_DATA) {
-		return dummyAccount;
+		result = dummyAccount;
+	} else {
+		const api = new PortalAccountsApi();
+		const accounts = await api.portalAccountsGet({
+			portalAccountId: accountId,
+		});
+		result = accounts?.[0];
 	}
-	const api = new PortalAccountsApi();
-	const accounts = await api.portalAccountsGet({
-		portalAccountId: accountId,
-	});
-	return accounts?.[0] ?? dummyAccount;
-};
 
-export const getAccountQuery = queryOptions({
-	queryKey: ["account", "accountId"],
-	queryFn: ({ queryKey }) => accountFetcher(queryKey[1] as string),
-});
+	if (!result) {
+		throw notFound({ data: { entityDescription: "account" } });
+	}
+
+	return result;
+};
 
 export const getAccountByAccountIdQuery = (accountId: string) =>
 	queryOptions({

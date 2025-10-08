@@ -15,6 +15,7 @@ import appCss from "../styles.css?url";
 
 import { AppContainer } from "@/components/AppContainer";
 import { AppSidebar } from "@/components/AppSidebar";
+import { LoadError } from "@/components/common/LoadError";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import type { QueryClient } from "@tanstack/react-query";
@@ -44,7 +45,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			},
 		],
 	}),
-
 	shellComponent: RootDocument,
 });
 

@@ -1,5 +1,6 @@
 import { USE_DUMMY_DATA } from "@/lib/constants";
 import { queryOptions } from "@tanstack/react-query";
+import { notFound } from "@tanstack/react-router";
 import { type PortalApplications, PortalApplicationsApi } from "./api";
 
 const dummyApplications: PortalApplications[] = [
@@ -59,16 +60,23 @@ export const getApplicationsQuery = queryOptions({
 export const applicationsByApplicationIdFetcher = async (
 	applicationId: string,
 ) => {
+	let result: PortalApplications | undefined;
 	if (USE_DUMMY_DATA) {
-		return dummyApplications.find(
+		result = dummyApplications.find(
 			(application) => application.portalApplicationId === applicationId,
 		);
+	} else {
+		const api = new PortalApplicationsApi();
+		const application = await api.portalApplicationsGet({
+			portalApplicationId: applicationId,
+		});
+		result = application?.[0];
 	}
-	const api = new PortalApplicationsApi();
-	const application = await api.portalApplicationsGet({
-		portalApplicationId: applicationId,
-	});
-	return application?.[0] ?? null;
+
+	if (!result) {
+		throw notFound({ data: { entityDescription: "application" } });
+	}
+	return result;
 };
 
 export const getApplicationsByApplicationIdQuery = (applicationId: string) =>
