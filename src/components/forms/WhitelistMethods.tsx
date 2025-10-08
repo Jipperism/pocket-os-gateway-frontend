@@ -1,12 +1,20 @@
 "use client";
 
-import { Copy, Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { z } from "zod";
 
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { ServiceSelector } from "@/components/forms/ServiceSelector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+	Item,
+	ItemActions,
+	ItemContent,
+	ItemDescription,
+	ItemMedia,
+	ItemTitle,
+} from "@/components/ui/item";
 import type { Services } from "@/fetching/api";
 import { getServicesQuery } from "@/fetching/services";
 import { useAppForm } from "@/hooks/form";
@@ -96,10 +104,6 @@ export function WhitelistMethodsContent({
 		form.setFieldValue("methods", updatedMethods);
 	};
 
-	const handleCopyMethod = (methodName: string) => {
-		navigator.clipboard.writeText(methodName);
-	};
-
 	const handleSave = () => {
 		form.handleSubmit();
 	};
@@ -167,42 +171,29 @@ export function WhitelistMethodsContent({
 				{/* Methods List */}
 				<div className="space-y-4 mb-6">
 					{methods.map((method: MethodEntry) => (
-						<div
-							key={method.id}
-							className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg border border-gray-700"
-						>
-							{/* Service Icon */}
-							<div className="flex-shrink-0 w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
-								<span className="text-white text-lg">{method.svgIcon}</span>
-							</div>
-
-							{/* Service Info */}
-							<div className="flex-1 min-w-0">
-								<div className="text-white font-medium">
-									{method.serviceName}
+						<Item key={method.id} variant="outline">
+							<ItemMedia variant="icon">
+								<div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
+									<span className="text-white text-lg">{method.svgIcon}</span>
 								</div>
-								<div className="text-gray-400 text-sm">
-									{method.serviceName}
-								</div>
-							</div>
+							</ItemMedia>
 
-							{/* Method Name */}
+							<ItemContent>
+								<ItemTitle className="text-white">
+									{method.serviceName}
+								</ItemTitle>
+								<ItemDescription className="text-gray-400">
+									{method.serviceName}
+								</ItemDescription>
+							</ItemContent>
+
 							<div className="flex-1 min-w-0">
 								<div className="text-white font-mono text-sm break-all">
 									{method.methodName}
 								</div>
 							</div>
 
-							{/* Action Buttons */}
-							<div className="flex items-center gap-2">
-								<Button
-									variant="ghost"
-									size="icon"
-									onClick={() => handleCopyMethod(method.methodName)}
-									className="text-gray-400 hover:text-white hover:bg-gray-700"
-								>
-									<Copy className="h-4 w-4" />
-								</Button>
+							<ItemActions>
 								<Button
 									variant="ghost"
 									size="icon"
@@ -211,8 +202,8 @@ export function WhitelistMethodsContent({
 								>
 									<Trash2 className="h-4 w-4" />
 								</Button>
-							</div>
-						</div>
+							</ItemActions>
+						</Item>
 					))}
 
 					{/* Empty State */}

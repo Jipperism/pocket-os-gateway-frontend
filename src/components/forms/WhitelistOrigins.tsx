@@ -1,12 +1,19 @@
 "use client";
 
-import { Copy, Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import type { KeyboardEvent } from "react";
 import { z } from "zod";
 
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+	Item,
+	ItemActions,
+	ItemContent,
+	ItemMedia,
+	ItemTitle,
+} from "@/components/ui/item";
 import { getApplicationsByApplicationIdQuery } from "@/fetching/applications";
 import { useAppForm } from "@/hooks/form";
 import { useStore } from "@tanstack/react-form";
@@ -71,10 +78,6 @@ export function WhitelistOriginsContent({
 		form.setFieldValue("origins", updatedOrigins);
 	};
 
-	const handleCopyOrigin = (origin: string) => {
-		navigator.clipboard.writeText(origin);
-	};
-
 	const handleSave = () => {
 		form.handleSubmit();
 	};
@@ -132,32 +135,20 @@ export function WhitelistOriginsContent({
 				{/* Origins List */}
 				<div className="space-y-4 mb-6">
 					{origins.map((origin: Origin) => (
-						<div
-							key={origin.id}
-							className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg border border-gray-700"
-						>
-							{/* Origin Icon */}
-							<div className="flex-shrink-0 w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
-								<span className="text-white text-lg font-bold">O</span>
-							</div>
-
-							{/* Origin Value */}
-							<div className="flex-1 min-w-0">
-								<div className="text-white font-medium break-all">
-									{origin.value}
+						<Item key={origin.id} variant="outline">
+							<ItemMedia variant="icon">
+								<div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
+									<span className="text-white text-lg font-bold">O</span>
 								</div>
-							</div>
+							</ItemMedia>
 
-							{/* Action Buttons */}
-							<div className="flex items-center gap-2">
-								<Button
-									variant="ghost"
-									size="icon"
-									onClick={() => handleCopyOrigin(origin.value)}
-									className="text-gray-400 hover:text-white hover:bg-gray-700"
-								>
-									<Copy className="h-4 w-4" />
-								</Button>
+							<ItemContent>
+								<ItemTitle className="text-white break-all">
+									{origin.value}
+								</ItemTitle>
+							</ItemContent>
+
+							<ItemActions>
 								<Button
 									variant="ghost"
 									size="icon"
@@ -166,8 +157,8 @@ export function WhitelistOriginsContent({
 								>
 									<Trash2 className="h-4 w-4" />
 								</Button>
-							</div>
-						</div>
+							</ItemActions>
+						</Item>
 					))}
 
 					{/* Empty State */}

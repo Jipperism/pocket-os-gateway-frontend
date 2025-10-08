@@ -1,12 +1,20 @@
 "use client";
 
-import { Copy, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { z } from "zod";
 
+import { CopyableInput } from "@/components/common/CopyableInput";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { ServiceSelector } from "@/components/forms/ServiceSelector";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import {
+	Item,
+	ItemActions,
+	ItemContent,
+	ItemDescription,
+	ItemMedia,
+	ItemTitle,
+} from "@/components/ui/item";
 import type { Services } from "@/fetching/api";
 import { getApplicationsByApplicationIdQuery } from "@/fetching/applications";
 import { useAppForm } from "@/hooks/form";
@@ -66,10 +74,6 @@ export function WhitelistServicesContent({
 		form.setFieldValue("whitelistedServices", updatedServices);
 	};
 
-	const handleCopyEndpoint = (endpoint: string) => {
-		navigator.clipboard.writeText(endpoint);
-	};
-
 	const handleSave = () => {
 		form.handleSubmit();
 	};
@@ -110,46 +114,30 @@ export function WhitelistServicesContent({
 				{/* Services List */}
 				<div className="space-y-4 mb-6">
 					{whitelistedServices.map((service) => (
-						<div
-							key={service.serviceId}
-							className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg border border-gray-700"
-						>
-							{/* Service Icon */}
-							<div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-								<span className="text-white text-lg">{service.svgIcon}</span>
-							</div>
-
-							{/* Service Info */}
-							<div className="flex-1 min-w-0">
-								<div className="text-white font-medium">
-									{service.serviceName}
+						<Item key={service.serviceId} variant="outline">
+							<ItemMedia variant="icon">
+								<div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+									<span className="text-white text-lg">{service.svgIcon}</span>
 								</div>
-								<div className="text-gray-400 text-sm">
-									{service.serviceName}
-								</div>
-							</div>
+							</ItemMedia>
 
-							{/* Endpoint URL */}
+							<ItemContent>
+								<ItemTitle className="text-white">
+									{service.serviceName}
+								</ItemTitle>
+								<ItemDescription className="text-gray-400">
+									{service.serviceName}
+								</ItemDescription>
+							</ItemContent>
+
 							<div className="flex-1 min-w-0">
-								<Input
-									value={service.publicEndpointUrl}
-									readOnly
-									className="bg-gray-700 border-gray-600 text-white text-sm"
+								<CopyableInput
+									value={service.publicEndpointUrl || ""}
+									className="text-white text-sm"
 								/>
 							</div>
 
-							{/* Action Buttons */}
-							<div className="flex items-center gap-2">
-								<Button
-									variant="ghost"
-									size="icon"
-									onClick={() =>
-										handleCopyEndpoint(service.publicEndpointUrl || "")
-									}
-									className="text-gray-400 hover:text-white hover:bg-gray-700"
-								>
-									<Copy className="h-4 w-4" />
-								</Button>
+							<ItemActions>
 								<Button
 									variant="ghost"
 									size="icon"
@@ -158,8 +146,8 @@ export function WhitelistServicesContent({
 								>
 									<Trash2 className="h-4 w-4" />
 								</Button>
-							</div>
-						</div>
+							</ItemActions>
+						</Item>
 					))}
 				</div>
 			</div>

@@ -1,12 +1,20 @@
 "use client";
 
-import { Copy, Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { z } from "zod";
 
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { ServiceSelector } from "@/components/forms/ServiceSelector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+	Item,
+	ItemActions,
+	ItemContent,
+	ItemDescription,
+	ItemMedia,
+	ItemTitle,
+} from "@/components/ui/item";
 import type { Services } from "@/fetching/api";
 import { getApplicationsByApplicationIdQuery } from "@/fetching/applications";
 import { getServicesQuery } from "@/fetching/services";
@@ -100,10 +108,6 @@ export function WhitelistContractsContent({
 		form.setFieldValue("contracts", updatedContracts);
 	};
 
-	const handleCopyContract = (contractAddress: string) => {
-		navigator.clipboard.writeText(contractAddress);
-	};
-
 	const handleSave = () => {
 		form.handleSubmit();
 	};
@@ -174,42 +178,29 @@ export function WhitelistContractsContent({
 				{/* Contracts List */}
 				<div className="space-y-4 mb-6">
 					{contracts.map((contract: ContractEntry) => (
-						<div
-							key={contract.id}
-							className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg border border-gray-700"
-						>
-							{/* Service Icon */}
-							<div className="flex-shrink-0 w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
-								<span className="text-white text-lg">{contract.svgIcon}</span>
-							</div>
-
-							{/* Service Info */}
-							<div className="flex-1 min-w-0">
-								<div className="text-white font-medium">
-									{contract.serviceName}
+						<Item key={contract.id} variant="outline">
+							<ItemMedia variant="icon">
+								<div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
+									<span className="text-white text-lg">{contract.svgIcon}</span>
 								</div>
-								<div className="text-gray-400 text-sm">
-									{contract.serviceName}
-								</div>
-							</div>
+							</ItemMedia>
 
-							{/* Contract Address */}
+							<ItemContent>
+								<ItemTitle className="text-white">
+									{contract.serviceName}
+								</ItemTitle>
+								<ItemDescription className="text-gray-400">
+									{contract.serviceName}
+								</ItemDescription>
+							</ItemContent>
+
 							<div className="flex-1 min-w-0">
 								<div className="text-white font-mono text-sm break-all">
 									{contract.contractAddress}
 								</div>
 							</div>
 
-							{/* Action Buttons */}
-							<div className="flex items-center gap-2">
-								<Button
-									variant="ghost"
-									size="icon"
-									onClick={() => handleCopyContract(contract.contractAddress)}
-									className="text-gray-400 hover:text-white hover:bg-gray-700"
-								>
-									<Copy className="h-4 w-4" />
-								</Button>
+							<ItemActions>
 								<Button
 									variant="ghost"
 									size="icon"
@@ -218,8 +209,8 @@ export function WhitelistContractsContent({
 								>
 									<Trash2 className="h-4 w-4" />
 								</Button>
-							</div>
-						</div>
+							</ItemActions>
+						</Item>
 					))}
 
 					{/* Empty State */}
