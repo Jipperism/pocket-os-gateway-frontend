@@ -7,7 +7,7 @@ import { Outlet, createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/account/$accountId/$applicationId")({
 	component: RouteComponent,
 	loader: async ({ params, context }) => {
-		context.queryClient.ensureQueryData(
+		await context.queryClient.ensureQueryData(
 			getApplicationsByApplicationIdQuery(params.applicationId),
 		);
 	},

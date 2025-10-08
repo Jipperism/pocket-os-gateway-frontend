@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
+import { ProgressProvider } from "../integrations/bprogress/progress-provider";
 import ClerkProvider from "../integrations/clerk/provider";
 
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
@@ -54,25 +55,27 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<ClerkProvider>
-					<SidebarProvider>
-						{/* <Header /> */}
-						<AppSidebar />
-						<AppContainer>{children}</AppContainer>
-						<TanstackDevtools
-							config={{
-								position: "bottom-left",
-							}}
-							plugins={[
-								{
-									name: "Tanstack Router",
-									render: <TanStackRouterDevtoolsPanel />,
-								},
-								TanStackQueryDevtools,
-							]}
-						/>
-					</SidebarProvider>
-				</ClerkProvider>
+				<ProgressProvider>
+					<ClerkProvider>
+						<SidebarProvider>
+							{/* <Header /> */}
+							<AppSidebar />
+							<AppContainer>{children}</AppContainer>
+							<TanstackDevtools
+								config={{
+									position: "bottom-left",
+								}}
+								plugins={[
+									{
+										name: "Tanstack Router",
+										render: <TanStackRouterDevtoolsPanel />,
+									},
+									TanStackQueryDevtools,
+								]}
+							/>
+						</SidebarProvider>
+					</ClerkProvider>
+				</ProgressProvider>
 				<Toaster />
 				<Scripts />
 			</body>
