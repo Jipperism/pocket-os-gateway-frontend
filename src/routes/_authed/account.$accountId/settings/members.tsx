@@ -8,7 +8,7 @@ import { User, UserPlus } from "lucide-react";
 import { InviteMemberContent } from "@/components/forms/InviteMember";
 
 // Members settings page
-export const Route = createFileRoute("/account/$accountId/settings/members")({
+export const Route = createFileRoute("/_authed/account/$accountId/settings/members")({
 	component: RouteComponent,
 });
 
@@ -22,7 +22,7 @@ function RouteComponent() {
 			status: "-",
 			avatar: null, // Will use default avatar
 		},
-	];
+	]
 
 	return (
 		<div className="p-6 space-y-6">
@@ -83,5 +83,5 @@ function RouteComponent() {
 				</div>
 			</div>
 		</div>
-	);
+	)
 }

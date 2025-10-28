@@ -6,13 +6,13 @@ import { getApplicationsByApplicationIdQuery } from "@/fetching/applications";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/account/$accountId/$applicationId/keys")(
+export const Route = createFileRoute("/_authed/account/$accountId/$applicationId/keys")(
 	{
 		component: RouteComponent,
 		loader: async ({ params, context }) => {
 			context.queryClient.ensureQueryData(
 				getApplicationsByApplicationIdQuery(params.applicationId),
-			);
+			)
 		},
 	},
 );
@@ -21,7 +21,7 @@ function RouteComponent() {
 	const { applicationId } = Route.useParams();
 	const { data: application } = useSuspenseQuery({
 		...getApplicationsByApplicationIdQuery(applicationId),
-	});
+	})
 
 	// Placeholder values - these would come from the API in a real implementation
 	const appId = application?.portalApplicationId ?? "";
@@ -45,5 +45,5 @@ function RouteComponent() {
 			/>
 			<HideableInput value={secretKey} />
 		</div>
-	);
+	)
 }

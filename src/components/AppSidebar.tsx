@@ -1,4 +1,4 @@
-import { Link, useParams } from "@tanstack/react-router";
+import { Link, useRouteContext } from "@tanstack/react-router";
 
 import { Plus } from "lucide-react";
 
@@ -12,7 +12,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { getApplicationsQuery } from "@/fetching/applications.tsx";
+import { getApplicationsForAccountIdQueryQuery } from "@/fetching/applications.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import ClerkHeader from "../integrations/clerk/header-user.tsx";
 
@@ -57,9 +57,12 @@ const menuItems = [
 	},
 ];
 
-export function AppSidebar() {
-	const accountId = "a3bd0616";
-	const { data: applications } = useSuspenseQuery(getApplicationsQuery);
+export function AppSidebar({
+	portalUserId: accountId,
+}: { portalUserId: string }) {
+	const { data: applications } = useSuspenseQuery(
+		getApplicationsForAccountIdQueryQuery(accountId),
+	);
 	return (
 		<SidebarComponent>
 			<SidebarContent>

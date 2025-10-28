@@ -1,6 +1,7 @@
 import { TanstackDevtools } from "@tanstack/react-devtools";
 import {
 	HeadContent,
+	RouterProvider,
 	Scripts,
 	createRootRouteWithContext,
 } from "@tanstack/react-router";
@@ -13,15 +14,15 @@ import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 
 import appCss from "../styles.css?url";
 
-import { AppContainer } from "@/components/AppContainer";
-import { AppSidebar } from "@/components/AppSidebar";
-import { LoadError } from "@/components/common/LoadError";
+import { fetchPortalUser } from "@/api/getPortalUser";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import type { QueryClient } from "@tanstack/react-query";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
+	portalUserId: string | null;
+	token: string | null;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
@@ -46,6 +47,14 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 		],
 	}),
 	shellComponent: RootDocument,
+	beforeLoad: async () => {
+		const { portalUserId, token } = await fetchPortalUser();
+
+		return {
+			portalUserId,
+			token,
+		};
+	},
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -59,8 +68,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					<ClerkProvider>
 						<SidebarProvider>
 							{/* <Header /> */}
-							<AppSidebar />
-							<AppContainer>{children}</AppContainer>
+							{children}
 							<TanstackDevtools
 								config={{
 									position: "bottom-left",

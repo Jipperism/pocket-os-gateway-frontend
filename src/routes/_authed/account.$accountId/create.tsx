@@ -3,7 +3,7 @@ import { useAppForm } from "@/hooks/form";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
-export const Route = createFileRoute("/account/$accountId/create")({
+export const Route = createFileRoute("/_authed/account/$accountId/create")({
 	component: RouteComponent,
 });
 

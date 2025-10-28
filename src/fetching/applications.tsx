@@ -51,11 +51,11 @@ const applicationsForaccountIdFetcher = async (accountId: string) => {
 	return applications ?? [];
 };
 
-export const getApplicationsQuery = queryOptions({
-	queryKey: ["applications"],
-	queryFn: (context) =>
-		applicationsForaccountIdFetcher(context.meta?.accountId as string),
-});
+export const getApplicationsForAccountIdQueryQuery = (accountId: string) =>
+	queryOptions({
+		queryKey: ["applications", accountId],
+		queryFn: () => applicationsForaccountIdFetcher(accountId),
+	});
 
 export const applicationsByApplicationIdFetcher = async (
 	applicationId: string,

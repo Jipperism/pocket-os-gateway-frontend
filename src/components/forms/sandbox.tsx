@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { getApplicationsQuery } from "@/fetching/applications";
+import { getApplicationsForAccountIdQueryQuery } from "@/fetching/applications";
 import { getNetworksQuery } from "@/fetching/networks";
 import { useAppForm } from "@/hooks/form";
 import { json } from "@codemirror/lang-json";
@@ -49,7 +49,9 @@ export const SandboxForm = ({
 	chain: propChain,
 	application: propApplication,
 }: SandboxFormProps) => {
-	const { data: applications } = useSuspenseQuery(getApplicationsQuery);
+	const { data: applications } = useSuspenseQuery(
+		getApplicationsForAccountIdQueryQuery("a"),
+	);
 	const { data: networks } = useSuspenseQuery(getNetworksQuery);
 	const [response, setResponse] = useState(null);
 

@@ -4,7 +4,7 @@ import { useAppForm } from "@/hooks/form";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-	"/account/$accountId/settings/notifications",
+	"/_authed/account/$accountId/settings/notifications",
 )({
 	component: RouteComponent,
 });
@@ -21,7 +21,7 @@ function RouteComponent() {
 			console.log("Saving notification preferences:", value);
 			// TODO: Implement API call to save preferences
 		},
-	});
+	})
 
 	const alertOptions = [
 		{ field: "alert25", label: "25% of 1M relays per month" },
@@ -68,5 +68,5 @@ function RouteComponent() {
 				</form.AppForm>
 			</div>
 		</form>
-	);
+	)
 }

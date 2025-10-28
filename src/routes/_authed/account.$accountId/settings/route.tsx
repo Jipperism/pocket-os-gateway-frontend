@@ -4,12 +4,12 @@ import { getAccountByAccountIdQuery } from "@/fetching/accounts";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/account/$accountId/settings")({
+export const Route = createFileRoute("/_authed/account/$accountId/settings")({
 	component: RouteComponent,
 	loader: async ({ params, context }) => {
 		context.queryClient.ensureQueryData(
 			getAccountByAccountIdQuery(params.accountId),
-		);
+		)
 	},
 });
 
@@ -17,7 +17,7 @@ function RouteComponent() {
 	const { accountId } = Route.useParams();
 	const { data: account } = useSuspenseQuery(
 		getAccountByAccountIdQuery(accountId),
-	);
+	)
 
 	if (!account) {
 		return <div>Account not found</div>;
@@ -29,5 +29,5 @@ function RouteComponent() {
 			<SettingsTabs accountId={accountId} />
 			<Outlet />
 		</div>
-	);
+	)
 }

@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthedRouteImport } from './routes/_authed'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo.table'
@@ -19,20 +20,25 @@ import { Route as DemoStartServerFuncsRouteImport } from './routes/demo.start.se
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api-request'
 import { Route as DemoSentryTestingRouteImport } from './routes/demo.sentry.testing'
 import { Route as DemoFormAddressRouteImport } from './routes/demo.form.address'
-import { Route as AccountAccountIdSandboxRouteImport } from './routes/account.$accountId/sandbox'
-import { Route as AccountAccountIdCreateRouteImport } from './routes/account.$accountId/create'
-import { Route as AccountAccountIdSettingsRouteRouteImport } from './routes/account.$accountId/settings/route'
-import { Route as AccountAccountIdApplicationIdRouteRouteImport } from './routes/account.$accountId/$applicationId/route'
-import { Route as AccountAccountIdSettingsPlanRouteImport } from './routes/account.$accountId/settings/plan'
-import { Route as AccountAccountIdSettingsNotificationsRouteImport } from './routes/account.$accountId/settings/notifications'
-import { Route as AccountAccountIdSettingsMembersRouteImport } from './routes/account.$accountId/settings/members'
-import { Route as AccountAccountIdSettingsAccountRouteImport } from './routes/account.$accountId/settings/account'
-import { Route as AccountAccountIdApplicationIdServicesRouteImport } from './routes/account.$accountId/$applicationId/services'
-import { Route as AccountAccountIdApplicationIdSecurityRouteImport } from './routes/account.$accountId/$applicationId/security'
-import { Route as AccountAccountIdApplicationIdLogsRouteImport } from './routes/account.$accountId/$applicationId/logs'
-import { Route as AccountAccountIdApplicationIdKeysRouteImport } from './routes/account.$accountId/$applicationId/keys'
-import { Route as AccountAccountIdApplicationIdInsightsRouteImport } from './routes/account.$accountId/$applicationId/insights'
+import { Route as AuthedAccountAccountIdRouteRouteImport } from './routes/_authed/account.$accountId/route'
+import { Route as AuthedAccountAccountIdSandboxRouteImport } from './routes/_authed/account.$accountId/sandbox'
+import { Route as AuthedAccountAccountIdCreateRouteImport } from './routes/_authed/account.$accountId/create'
+import { Route as AuthedAccountAccountIdSettingsRouteRouteImport } from './routes/_authed/account.$accountId/settings/route'
+import { Route as AuthedAccountAccountIdApplicationIdRouteRouteImport } from './routes/_authed/account.$accountId/$applicationId/route'
+import { Route as AuthedAccountAccountIdSettingsPlanRouteImport } from './routes/_authed/account.$accountId/settings/plan'
+import { Route as AuthedAccountAccountIdSettingsNotificationsRouteImport } from './routes/_authed/account.$accountId/settings/notifications'
+import { Route as AuthedAccountAccountIdSettingsMembersRouteImport } from './routes/_authed/account.$accountId/settings/members'
+import { Route as AuthedAccountAccountIdSettingsAccountRouteImport } from './routes/_authed/account.$accountId/settings/account'
+import { Route as AuthedAccountAccountIdApplicationIdServicesRouteImport } from './routes/_authed/account.$accountId/$applicationId/services'
+import { Route as AuthedAccountAccountIdApplicationIdSecurityRouteImport } from './routes/_authed/account.$accountId/$applicationId/security'
+import { Route as AuthedAccountAccountIdApplicationIdLogsRouteImport } from './routes/_authed/account.$accountId/$applicationId/logs'
+import { Route as AuthedAccountAccountIdApplicationIdKeysRouteImport } from './routes/_authed/account.$accountId/$applicationId/keys'
+import { Route as AuthedAccountAccountIdApplicationIdInsightsRouteImport } from './routes/_authed/account.$accountId/$applicationId/insights'
 
+const AuthedRoute = AuthedRouteImport.update({
+  id: '/_authed',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -83,81 +89,89 @@ const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
   path: '/demo/form/address',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AccountAccountIdSandboxRoute = AccountAccountIdSandboxRouteImport.update({
-  id: '/account/$accountId/sandbox',
-  path: '/account/$accountId/sandbox',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AccountAccountIdCreateRoute = AccountAccountIdCreateRouteImport.update({
-  id: '/account/$accountId/create',
-  path: '/account/$accountId/create',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AccountAccountIdSettingsRouteRoute =
-  AccountAccountIdSettingsRouteRouteImport.update({
-    id: '/account/$accountId/settings',
-    path: '/account/$accountId/settings',
-    getParentRoute: () => rootRouteImport,
+const AuthedAccountAccountIdRouteRoute =
+  AuthedAccountAccountIdRouteRouteImport.update({
+    id: '/account/$accountId',
+    path: '/account/$accountId',
+    getParentRoute: () => AuthedRoute,
   } as any)
-const AccountAccountIdApplicationIdRouteRoute =
-  AccountAccountIdApplicationIdRouteRouteImport.update({
-    id: '/account/$accountId/$applicationId',
-    path: '/account/$accountId/$applicationId',
-    getParentRoute: () => rootRouteImport,
+const AuthedAccountAccountIdSandboxRoute =
+  AuthedAccountAccountIdSandboxRouteImport.update({
+    id: '/sandbox',
+    path: '/sandbox',
+    getParentRoute: () => AuthedAccountAccountIdRouteRoute,
   } as any)
-const AccountAccountIdSettingsPlanRoute =
-  AccountAccountIdSettingsPlanRouteImport.update({
+const AuthedAccountAccountIdCreateRoute =
+  AuthedAccountAccountIdCreateRouteImport.update({
+    id: '/create',
+    path: '/create',
+    getParentRoute: () => AuthedAccountAccountIdRouteRoute,
+  } as any)
+const AuthedAccountAccountIdSettingsRouteRoute =
+  AuthedAccountAccountIdSettingsRouteRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthedAccountAccountIdRouteRoute,
+  } as any)
+const AuthedAccountAccountIdApplicationIdRouteRoute =
+  AuthedAccountAccountIdApplicationIdRouteRouteImport.update({
+    id: '/$applicationId',
+    path: '/$applicationId',
+    getParentRoute: () => AuthedAccountAccountIdRouteRoute,
+  } as any)
+const AuthedAccountAccountIdSettingsPlanRoute =
+  AuthedAccountAccountIdSettingsPlanRouteImport.update({
     id: '/plan',
     path: '/plan',
-    getParentRoute: () => AccountAccountIdSettingsRouteRoute,
+    getParentRoute: () => AuthedAccountAccountIdSettingsRouteRoute,
   } as any)
-const AccountAccountIdSettingsNotificationsRoute =
-  AccountAccountIdSettingsNotificationsRouteImport.update({
+const AuthedAccountAccountIdSettingsNotificationsRoute =
+  AuthedAccountAccountIdSettingsNotificationsRouteImport.update({
     id: '/notifications',
     path: '/notifications',
-    getParentRoute: () => AccountAccountIdSettingsRouteRoute,
+    getParentRoute: () => AuthedAccountAccountIdSettingsRouteRoute,
   } as any)
-const AccountAccountIdSettingsMembersRoute =
-  AccountAccountIdSettingsMembersRouteImport.update({
+const AuthedAccountAccountIdSettingsMembersRoute =
+  AuthedAccountAccountIdSettingsMembersRouteImport.update({
     id: '/members',
     path: '/members',
-    getParentRoute: () => AccountAccountIdSettingsRouteRoute,
+    getParentRoute: () => AuthedAccountAccountIdSettingsRouteRoute,
   } as any)
-const AccountAccountIdSettingsAccountRoute =
-  AccountAccountIdSettingsAccountRouteImport.update({
+const AuthedAccountAccountIdSettingsAccountRoute =
+  AuthedAccountAccountIdSettingsAccountRouteImport.update({
     id: '/account',
     path: '/account',
-    getParentRoute: () => AccountAccountIdSettingsRouteRoute,
+    getParentRoute: () => AuthedAccountAccountIdSettingsRouteRoute,
   } as any)
-const AccountAccountIdApplicationIdServicesRoute =
-  AccountAccountIdApplicationIdServicesRouteImport.update({
+const AuthedAccountAccountIdApplicationIdServicesRoute =
+  AuthedAccountAccountIdApplicationIdServicesRouteImport.update({
     id: '/services',
     path: '/services',
-    getParentRoute: () => AccountAccountIdApplicationIdRouteRoute,
+    getParentRoute: () => AuthedAccountAccountIdApplicationIdRouteRoute,
   } as any)
-const AccountAccountIdApplicationIdSecurityRoute =
-  AccountAccountIdApplicationIdSecurityRouteImport.update({
+const AuthedAccountAccountIdApplicationIdSecurityRoute =
+  AuthedAccountAccountIdApplicationIdSecurityRouteImport.update({
     id: '/security',
     path: '/security',
-    getParentRoute: () => AccountAccountIdApplicationIdRouteRoute,
+    getParentRoute: () => AuthedAccountAccountIdApplicationIdRouteRoute,
   } as any)
-const AccountAccountIdApplicationIdLogsRoute =
-  AccountAccountIdApplicationIdLogsRouteImport.update({
+const AuthedAccountAccountIdApplicationIdLogsRoute =
+  AuthedAccountAccountIdApplicationIdLogsRouteImport.update({
     id: '/logs',
     path: '/logs',
-    getParentRoute: () => AccountAccountIdApplicationIdRouteRoute,
+    getParentRoute: () => AuthedAccountAccountIdApplicationIdRouteRoute,
   } as any)
-const AccountAccountIdApplicationIdKeysRoute =
-  AccountAccountIdApplicationIdKeysRouteImport.update({
+const AuthedAccountAccountIdApplicationIdKeysRoute =
+  AuthedAccountAccountIdApplicationIdKeysRouteImport.update({
     id: '/keys',
     path: '/keys',
-    getParentRoute: () => AccountAccountIdApplicationIdRouteRoute,
+    getParentRoute: () => AuthedAccountAccountIdApplicationIdRouteRoute,
   } as any)
-const AccountAccountIdApplicationIdInsightsRoute =
-  AccountAccountIdApplicationIdInsightsRouteImport.update({
+const AuthedAccountAccountIdApplicationIdInsightsRoute =
+  AuthedAccountAccountIdApplicationIdInsightsRouteImport.update({
     id: '/insights',
     path: '/insights',
-    getParentRoute: () => AccountAccountIdApplicationIdRouteRoute,
+    getParentRoute: () => AuthedAccountAccountIdApplicationIdRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -167,23 +181,24 @@ export interface FileRoutesByFullPath {
   '/demo/clerk': typeof DemoClerkRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/account/$accountId/$applicationId': typeof AccountAccountIdApplicationIdRouteRouteWithChildren
-  '/account/$accountId/settings': typeof AccountAccountIdSettingsRouteRouteWithChildren
-  '/account/$accountId/create': typeof AccountAccountIdCreateRoute
-  '/account/$accountId/sandbox': typeof AccountAccountIdSandboxRoute
+  '/account/$accountId': typeof AuthedAccountAccountIdRouteRouteWithChildren
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/account/$accountId/$applicationId/insights': typeof AccountAccountIdApplicationIdInsightsRoute
-  '/account/$accountId/$applicationId/keys': typeof AccountAccountIdApplicationIdKeysRoute
-  '/account/$accountId/$applicationId/logs': typeof AccountAccountIdApplicationIdLogsRoute
-  '/account/$accountId/$applicationId/security': typeof AccountAccountIdApplicationIdSecurityRoute
-  '/account/$accountId/$applicationId/services': typeof AccountAccountIdApplicationIdServicesRoute
-  '/account/$accountId/settings/account': typeof AccountAccountIdSettingsAccountRoute
-  '/account/$accountId/settings/members': typeof AccountAccountIdSettingsMembersRoute
-  '/account/$accountId/settings/notifications': typeof AccountAccountIdSettingsNotificationsRoute
-  '/account/$accountId/settings/plan': typeof AccountAccountIdSettingsPlanRoute
+  '/account/$accountId/$applicationId': typeof AuthedAccountAccountIdApplicationIdRouteRouteWithChildren
+  '/account/$accountId/settings': typeof AuthedAccountAccountIdSettingsRouteRouteWithChildren
+  '/account/$accountId/create': typeof AuthedAccountAccountIdCreateRoute
+  '/account/$accountId/sandbox': typeof AuthedAccountAccountIdSandboxRoute
+  '/account/$accountId/$applicationId/insights': typeof AuthedAccountAccountIdApplicationIdInsightsRoute
+  '/account/$accountId/$applicationId/keys': typeof AuthedAccountAccountIdApplicationIdKeysRoute
+  '/account/$accountId/$applicationId/logs': typeof AuthedAccountAccountIdApplicationIdLogsRoute
+  '/account/$accountId/$applicationId/security': typeof AuthedAccountAccountIdApplicationIdSecurityRoute
+  '/account/$accountId/$applicationId/services': typeof AuthedAccountAccountIdApplicationIdServicesRoute
+  '/account/$accountId/settings/account': typeof AuthedAccountAccountIdSettingsAccountRoute
+  '/account/$accountId/settings/members': typeof AuthedAccountAccountIdSettingsMembersRoute
+  '/account/$accountId/settings/notifications': typeof AuthedAccountAccountIdSettingsNotificationsRoute
+  '/account/$accountId/settings/plan': typeof AuthedAccountAccountIdSettingsPlanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -192,49 +207,52 @@ export interface FileRoutesByTo {
   '/demo/clerk': typeof DemoClerkRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/account/$accountId/$applicationId': typeof AccountAccountIdApplicationIdRouteRouteWithChildren
-  '/account/$accountId/settings': typeof AccountAccountIdSettingsRouteRouteWithChildren
-  '/account/$accountId/create': typeof AccountAccountIdCreateRoute
-  '/account/$accountId/sandbox': typeof AccountAccountIdSandboxRoute
+  '/account/$accountId': typeof AuthedAccountAccountIdRouteRouteWithChildren
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/account/$accountId/$applicationId/insights': typeof AccountAccountIdApplicationIdInsightsRoute
-  '/account/$accountId/$applicationId/keys': typeof AccountAccountIdApplicationIdKeysRoute
-  '/account/$accountId/$applicationId/logs': typeof AccountAccountIdApplicationIdLogsRoute
-  '/account/$accountId/$applicationId/security': typeof AccountAccountIdApplicationIdSecurityRoute
-  '/account/$accountId/$applicationId/services': typeof AccountAccountIdApplicationIdServicesRoute
-  '/account/$accountId/settings/account': typeof AccountAccountIdSettingsAccountRoute
-  '/account/$accountId/settings/members': typeof AccountAccountIdSettingsMembersRoute
-  '/account/$accountId/settings/notifications': typeof AccountAccountIdSettingsNotificationsRoute
-  '/account/$accountId/settings/plan': typeof AccountAccountIdSettingsPlanRoute
+  '/account/$accountId/$applicationId': typeof AuthedAccountAccountIdApplicationIdRouteRouteWithChildren
+  '/account/$accountId/settings': typeof AuthedAccountAccountIdSettingsRouteRouteWithChildren
+  '/account/$accountId/create': typeof AuthedAccountAccountIdCreateRoute
+  '/account/$accountId/sandbox': typeof AuthedAccountAccountIdSandboxRoute
+  '/account/$accountId/$applicationId/insights': typeof AuthedAccountAccountIdApplicationIdInsightsRoute
+  '/account/$accountId/$applicationId/keys': typeof AuthedAccountAccountIdApplicationIdKeysRoute
+  '/account/$accountId/$applicationId/logs': typeof AuthedAccountAccountIdApplicationIdLogsRoute
+  '/account/$accountId/$applicationId/security': typeof AuthedAccountAccountIdApplicationIdSecurityRoute
+  '/account/$accountId/$applicationId/services': typeof AuthedAccountAccountIdApplicationIdServicesRoute
+  '/account/$accountId/settings/account': typeof AuthedAccountAccountIdSettingsAccountRoute
+  '/account/$accountId/settings/members': typeof AuthedAccountAccountIdSettingsMembersRoute
+  '/account/$accountId/settings/notifications': typeof AuthedAccountAccountIdSettingsNotificationsRoute
+  '/account/$accountId/settings/plan': typeof AuthedAccountAccountIdSettingsPlanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authed': typeof AuthedRouteWithChildren
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
   '/demo/clerk': typeof DemoClerkRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/account/$accountId/$applicationId': typeof AccountAccountIdApplicationIdRouteRouteWithChildren
-  '/account/$accountId/settings': typeof AccountAccountIdSettingsRouteRouteWithChildren
-  '/account/$accountId/create': typeof AccountAccountIdCreateRoute
-  '/account/$accountId/sandbox': typeof AccountAccountIdSandboxRoute
+  '/_authed/account/$accountId': typeof AuthedAccountAccountIdRouteRouteWithChildren
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/account/$accountId/$applicationId/insights': typeof AccountAccountIdApplicationIdInsightsRoute
-  '/account/$accountId/$applicationId/keys': typeof AccountAccountIdApplicationIdKeysRoute
-  '/account/$accountId/$applicationId/logs': typeof AccountAccountIdApplicationIdLogsRoute
-  '/account/$accountId/$applicationId/security': typeof AccountAccountIdApplicationIdSecurityRoute
-  '/account/$accountId/$applicationId/services': typeof AccountAccountIdApplicationIdServicesRoute
-  '/account/$accountId/settings/account': typeof AccountAccountIdSettingsAccountRoute
-  '/account/$accountId/settings/members': typeof AccountAccountIdSettingsMembersRoute
-  '/account/$accountId/settings/notifications': typeof AccountAccountIdSettingsNotificationsRoute
-  '/account/$accountId/settings/plan': typeof AccountAccountIdSettingsPlanRoute
+  '/_authed/account/$accountId/$applicationId': typeof AuthedAccountAccountIdApplicationIdRouteRouteWithChildren
+  '/_authed/account/$accountId/settings': typeof AuthedAccountAccountIdSettingsRouteRouteWithChildren
+  '/_authed/account/$accountId/create': typeof AuthedAccountAccountIdCreateRoute
+  '/_authed/account/$accountId/sandbox': typeof AuthedAccountAccountIdSandboxRoute
+  '/_authed/account/$accountId/$applicationId/insights': typeof AuthedAccountAccountIdApplicationIdInsightsRoute
+  '/_authed/account/$accountId/$applicationId/keys': typeof AuthedAccountAccountIdApplicationIdKeysRoute
+  '/_authed/account/$accountId/$applicationId/logs': typeof AuthedAccountAccountIdApplicationIdLogsRoute
+  '/_authed/account/$accountId/$applicationId/security': typeof AuthedAccountAccountIdApplicationIdSecurityRoute
+  '/_authed/account/$accountId/$applicationId/services': typeof AuthedAccountAccountIdApplicationIdServicesRoute
+  '/_authed/account/$accountId/settings/account': typeof AuthedAccountAccountIdSettingsAccountRoute
+  '/_authed/account/$accountId/settings/members': typeof AuthedAccountAccountIdSettingsMembersRoute
+  '/_authed/account/$accountId/settings/notifications': typeof AuthedAccountAccountIdSettingsNotificationsRoute
+  '/_authed/account/$accountId/settings/plan': typeof AuthedAccountAccountIdSettingsPlanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -245,14 +263,15 @@ export interface FileRouteTypes {
     | '/demo/clerk'
     | '/demo/table'
     | '/demo/tanstack-query'
-    | '/account/$accountId/$applicationId'
-    | '/account/$accountId/settings'
-    | '/account/$accountId/create'
-    | '/account/$accountId/sandbox'
+    | '/account/$accountId'
     | '/demo/form/address'
     | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/account/$accountId/$applicationId'
+    | '/account/$accountId/settings'
+    | '/account/$accountId/create'
+    | '/account/$accountId/sandbox'
     | '/account/$accountId/$applicationId/insights'
     | '/account/$accountId/$applicationId/keys'
     | '/account/$accountId/$applicationId/logs'
@@ -270,14 +289,15 @@ export interface FileRouteTypes {
     | '/demo/clerk'
     | '/demo/table'
     | '/demo/tanstack-query'
-    | '/account/$accountId/$applicationId'
-    | '/account/$accountId/settings'
-    | '/account/$accountId/create'
-    | '/account/$accountId/sandbox'
+    | '/account/$accountId'
     | '/demo/form/address'
     | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/account/$accountId/$applicationId'
+    | '/account/$accountId/settings'
+    | '/account/$accountId/create'
+    | '/account/$accountId/sandbox'
     | '/account/$accountId/$applicationId/insights'
     | '/account/$accountId/$applicationId/keys'
     | '/account/$accountId/$applicationId/logs'
@@ -290,41 +310,40 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authed'
     | '/api/demo-names'
     | '/api/demo-tq-todos'
     | '/demo/clerk'
     | '/demo/table'
     | '/demo/tanstack-query'
-    | '/account/$accountId/$applicationId'
-    | '/account/$accountId/settings'
-    | '/account/$accountId/create'
-    | '/account/$accountId/sandbox'
+    | '/_authed/account/$accountId'
     | '/demo/form/address'
     | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
-    | '/account/$accountId/$applicationId/insights'
-    | '/account/$accountId/$applicationId/keys'
-    | '/account/$accountId/$applicationId/logs'
-    | '/account/$accountId/$applicationId/security'
-    | '/account/$accountId/$applicationId/services'
-    | '/account/$accountId/settings/account'
-    | '/account/$accountId/settings/members'
-    | '/account/$accountId/settings/notifications'
-    | '/account/$accountId/settings/plan'
+    | '/_authed/account/$accountId/$applicationId'
+    | '/_authed/account/$accountId/settings'
+    | '/_authed/account/$accountId/create'
+    | '/_authed/account/$accountId/sandbox'
+    | '/_authed/account/$accountId/$applicationId/insights'
+    | '/_authed/account/$accountId/$applicationId/keys'
+    | '/_authed/account/$accountId/$applicationId/logs'
+    | '/_authed/account/$accountId/$applicationId/security'
+    | '/_authed/account/$accountId/$applicationId/services'
+    | '/_authed/account/$accountId/settings/account'
+    | '/_authed/account/$accountId/settings/members'
+    | '/_authed/account/$accountId/settings/notifications'
+    | '/_authed/account/$accountId/settings/plan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthedRoute: typeof AuthedRouteWithChildren
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
   ApiDemoTqTodosRoute: typeof ApiDemoTqTodosRoute
   DemoClerkRoute: typeof DemoClerkRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  AccountAccountIdApplicationIdRouteRoute: typeof AccountAccountIdApplicationIdRouteRouteWithChildren
-  AccountAccountIdSettingsRouteRoute: typeof AccountAccountIdSettingsRouteRouteWithChildren
-  AccountAccountIdCreateRoute: typeof AccountAccountIdCreateRoute
-  AccountAccountIdSandboxRoute: typeof AccountAccountIdSandboxRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoSentryTestingRoute: typeof DemoSentryTestingRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
@@ -333,6 +352,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_authed': {
+      id: '/_authed'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -403,161 +429,200 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoFormAddressRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/account/$accountId/sandbox': {
-      id: '/account/$accountId/sandbox'
-      path: '/account/$accountId/sandbox'
+    '/_authed/account/$accountId': {
+      id: '/_authed/account/$accountId'
+      path: '/account/$accountId'
+      fullPath: '/account/$accountId'
+      preLoaderRoute: typeof AuthedAccountAccountIdRouteRouteImport
+      parentRoute: typeof AuthedRoute
+    }
+    '/_authed/account/$accountId/sandbox': {
+      id: '/_authed/account/$accountId/sandbox'
+      path: '/sandbox'
       fullPath: '/account/$accountId/sandbox'
-      preLoaderRoute: typeof AccountAccountIdSandboxRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthedAccountAccountIdSandboxRouteImport
+      parentRoute: typeof AuthedAccountAccountIdRouteRoute
     }
-    '/account/$accountId/create': {
-      id: '/account/$accountId/create'
-      path: '/account/$accountId/create'
+    '/_authed/account/$accountId/create': {
+      id: '/_authed/account/$accountId/create'
+      path: '/create'
       fullPath: '/account/$accountId/create'
-      preLoaderRoute: typeof AccountAccountIdCreateRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthedAccountAccountIdCreateRouteImport
+      parentRoute: typeof AuthedAccountAccountIdRouteRoute
     }
-    '/account/$accountId/settings': {
-      id: '/account/$accountId/settings'
-      path: '/account/$accountId/settings'
+    '/_authed/account/$accountId/settings': {
+      id: '/_authed/account/$accountId/settings'
+      path: '/settings'
       fullPath: '/account/$accountId/settings'
-      preLoaderRoute: typeof AccountAccountIdSettingsRouteRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthedAccountAccountIdSettingsRouteRouteImport
+      parentRoute: typeof AuthedAccountAccountIdRouteRoute
     }
-    '/account/$accountId/$applicationId': {
-      id: '/account/$accountId/$applicationId'
-      path: '/account/$accountId/$applicationId'
+    '/_authed/account/$accountId/$applicationId': {
+      id: '/_authed/account/$accountId/$applicationId'
+      path: '/$applicationId'
       fullPath: '/account/$accountId/$applicationId'
-      preLoaderRoute: typeof AccountAccountIdApplicationIdRouteRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthedAccountAccountIdApplicationIdRouteRouteImport
+      parentRoute: typeof AuthedAccountAccountIdRouteRoute
     }
-    '/account/$accountId/settings/plan': {
-      id: '/account/$accountId/settings/plan'
+    '/_authed/account/$accountId/settings/plan': {
+      id: '/_authed/account/$accountId/settings/plan'
       path: '/plan'
       fullPath: '/account/$accountId/settings/plan'
-      preLoaderRoute: typeof AccountAccountIdSettingsPlanRouteImport
-      parentRoute: typeof AccountAccountIdSettingsRouteRoute
+      preLoaderRoute: typeof AuthedAccountAccountIdSettingsPlanRouteImport
+      parentRoute: typeof AuthedAccountAccountIdSettingsRouteRoute
     }
-    '/account/$accountId/settings/notifications': {
-      id: '/account/$accountId/settings/notifications'
+    '/_authed/account/$accountId/settings/notifications': {
+      id: '/_authed/account/$accountId/settings/notifications'
       path: '/notifications'
       fullPath: '/account/$accountId/settings/notifications'
-      preLoaderRoute: typeof AccountAccountIdSettingsNotificationsRouteImport
-      parentRoute: typeof AccountAccountIdSettingsRouteRoute
+      preLoaderRoute: typeof AuthedAccountAccountIdSettingsNotificationsRouteImport
+      parentRoute: typeof AuthedAccountAccountIdSettingsRouteRoute
     }
-    '/account/$accountId/settings/members': {
-      id: '/account/$accountId/settings/members'
+    '/_authed/account/$accountId/settings/members': {
+      id: '/_authed/account/$accountId/settings/members'
       path: '/members'
       fullPath: '/account/$accountId/settings/members'
-      preLoaderRoute: typeof AccountAccountIdSettingsMembersRouteImport
-      parentRoute: typeof AccountAccountIdSettingsRouteRoute
+      preLoaderRoute: typeof AuthedAccountAccountIdSettingsMembersRouteImport
+      parentRoute: typeof AuthedAccountAccountIdSettingsRouteRoute
     }
-    '/account/$accountId/settings/account': {
-      id: '/account/$accountId/settings/account'
+    '/_authed/account/$accountId/settings/account': {
+      id: '/_authed/account/$accountId/settings/account'
       path: '/account'
       fullPath: '/account/$accountId/settings/account'
-      preLoaderRoute: typeof AccountAccountIdSettingsAccountRouteImport
-      parentRoute: typeof AccountAccountIdSettingsRouteRoute
+      preLoaderRoute: typeof AuthedAccountAccountIdSettingsAccountRouteImport
+      parentRoute: typeof AuthedAccountAccountIdSettingsRouteRoute
     }
-    '/account/$accountId/$applicationId/services': {
-      id: '/account/$accountId/$applicationId/services'
+    '/_authed/account/$accountId/$applicationId/services': {
+      id: '/_authed/account/$accountId/$applicationId/services'
       path: '/services'
       fullPath: '/account/$accountId/$applicationId/services'
-      preLoaderRoute: typeof AccountAccountIdApplicationIdServicesRouteImport
-      parentRoute: typeof AccountAccountIdApplicationIdRouteRoute
+      preLoaderRoute: typeof AuthedAccountAccountIdApplicationIdServicesRouteImport
+      parentRoute: typeof AuthedAccountAccountIdApplicationIdRouteRoute
     }
-    '/account/$accountId/$applicationId/security': {
-      id: '/account/$accountId/$applicationId/security'
+    '/_authed/account/$accountId/$applicationId/security': {
+      id: '/_authed/account/$accountId/$applicationId/security'
       path: '/security'
       fullPath: '/account/$accountId/$applicationId/security'
-      preLoaderRoute: typeof AccountAccountIdApplicationIdSecurityRouteImport
-      parentRoute: typeof AccountAccountIdApplicationIdRouteRoute
+      preLoaderRoute: typeof AuthedAccountAccountIdApplicationIdSecurityRouteImport
+      parentRoute: typeof AuthedAccountAccountIdApplicationIdRouteRoute
     }
-    '/account/$accountId/$applicationId/logs': {
-      id: '/account/$accountId/$applicationId/logs'
+    '/_authed/account/$accountId/$applicationId/logs': {
+      id: '/_authed/account/$accountId/$applicationId/logs'
       path: '/logs'
       fullPath: '/account/$accountId/$applicationId/logs'
-      preLoaderRoute: typeof AccountAccountIdApplicationIdLogsRouteImport
-      parentRoute: typeof AccountAccountIdApplicationIdRouteRoute
+      preLoaderRoute: typeof AuthedAccountAccountIdApplicationIdLogsRouteImport
+      parentRoute: typeof AuthedAccountAccountIdApplicationIdRouteRoute
     }
-    '/account/$accountId/$applicationId/keys': {
-      id: '/account/$accountId/$applicationId/keys'
+    '/_authed/account/$accountId/$applicationId/keys': {
+      id: '/_authed/account/$accountId/$applicationId/keys'
       path: '/keys'
       fullPath: '/account/$accountId/$applicationId/keys'
-      preLoaderRoute: typeof AccountAccountIdApplicationIdKeysRouteImport
-      parentRoute: typeof AccountAccountIdApplicationIdRouteRoute
+      preLoaderRoute: typeof AuthedAccountAccountIdApplicationIdKeysRouteImport
+      parentRoute: typeof AuthedAccountAccountIdApplicationIdRouteRoute
     }
-    '/account/$accountId/$applicationId/insights': {
-      id: '/account/$accountId/$applicationId/insights'
+    '/_authed/account/$accountId/$applicationId/insights': {
+      id: '/_authed/account/$accountId/$applicationId/insights'
       path: '/insights'
       fullPath: '/account/$accountId/$applicationId/insights'
-      preLoaderRoute: typeof AccountAccountIdApplicationIdInsightsRouteImport
-      parentRoute: typeof AccountAccountIdApplicationIdRouteRoute
+      preLoaderRoute: typeof AuthedAccountAccountIdApplicationIdInsightsRouteImport
+      parentRoute: typeof AuthedAccountAccountIdApplicationIdRouteRoute
     }
   }
 }
 
-interface AccountAccountIdApplicationIdRouteRouteChildren {
-  AccountAccountIdApplicationIdInsightsRoute: typeof AccountAccountIdApplicationIdInsightsRoute
-  AccountAccountIdApplicationIdKeysRoute: typeof AccountAccountIdApplicationIdKeysRoute
-  AccountAccountIdApplicationIdLogsRoute: typeof AccountAccountIdApplicationIdLogsRoute
-  AccountAccountIdApplicationIdSecurityRoute: typeof AccountAccountIdApplicationIdSecurityRoute
-  AccountAccountIdApplicationIdServicesRoute: typeof AccountAccountIdApplicationIdServicesRoute
+interface AuthedAccountAccountIdApplicationIdRouteRouteChildren {
+  AuthedAccountAccountIdApplicationIdInsightsRoute: typeof AuthedAccountAccountIdApplicationIdInsightsRoute
+  AuthedAccountAccountIdApplicationIdKeysRoute: typeof AuthedAccountAccountIdApplicationIdKeysRoute
+  AuthedAccountAccountIdApplicationIdLogsRoute: typeof AuthedAccountAccountIdApplicationIdLogsRoute
+  AuthedAccountAccountIdApplicationIdSecurityRoute: typeof AuthedAccountAccountIdApplicationIdSecurityRoute
+  AuthedAccountAccountIdApplicationIdServicesRoute: typeof AuthedAccountAccountIdApplicationIdServicesRoute
 }
 
-const AccountAccountIdApplicationIdRouteRouteChildren: AccountAccountIdApplicationIdRouteRouteChildren =
+const AuthedAccountAccountIdApplicationIdRouteRouteChildren: AuthedAccountAccountIdApplicationIdRouteRouteChildren =
   {
-    AccountAccountIdApplicationIdInsightsRoute:
-      AccountAccountIdApplicationIdInsightsRoute,
-    AccountAccountIdApplicationIdKeysRoute:
-      AccountAccountIdApplicationIdKeysRoute,
-    AccountAccountIdApplicationIdLogsRoute:
-      AccountAccountIdApplicationIdLogsRoute,
-    AccountAccountIdApplicationIdSecurityRoute:
-      AccountAccountIdApplicationIdSecurityRoute,
-    AccountAccountIdApplicationIdServicesRoute:
-      AccountAccountIdApplicationIdServicesRoute,
+    AuthedAccountAccountIdApplicationIdInsightsRoute:
+      AuthedAccountAccountIdApplicationIdInsightsRoute,
+    AuthedAccountAccountIdApplicationIdKeysRoute:
+      AuthedAccountAccountIdApplicationIdKeysRoute,
+    AuthedAccountAccountIdApplicationIdLogsRoute:
+      AuthedAccountAccountIdApplicationIdLogsRoute,
+    AuthedAccountAccountIdApplicationIdSecurityRoute:
+      AuthedAccountAccountIdApplicationIdSecurityRoute,
+    AuthedAccountAccountIdApplicationIdServicesRoute:
+      AuthedAccountAccountIdApplicationIdServicesRoute,
   }
 
-const AccountAccountIdApplicationIdRouteRouteWithChildren =
-  AccountAccountIdApplicationIdRouteRoute._addFileChildren(
-    AccountAccountIdApplicationIdRouteRouteChildren,
+const AuthedAccountAccountIdApplicationIdRouteRouteWithChildren =
+  AuthedAccountAccountIdApplicationIdRouteRoute._addFileChildren(
+    AuthedAccountAccountIdApplicationIdRouteRouteChildren,
   )
 
-interface AccountAccountIdSettingsRouteRouteChildren {
-  AccountAccountIdSettingsAccountRoute: typeof AccountAccountIdSettingsAccountRoute
-  AccountAccountIdSettingsMembersRoute: typeof AccountAccountIdSettingsMembersRoute
-  AccountAccountIdSettingsNotificationsRoute: typeof AccountAccountIdSettingsNotificationsRoute
-  AccountAccountIdSettingsPlanRoute: typeof AccountAccountIdSettingsPlanRoute
+interface AuthedAccountAccountIdSettingsRouteRouteChildren {
+  AuthedAccountAccountIdSettingsAccountRoute: typeof AuthedAccountAccountIdSettingsAccountRoute
+  AuthedAccountAccountIdSettingsMembersRoute: typeof AuthedAccountAccountIdSettingsMembersRoute
+  AuthedAccountAccountIdSettingsNotificationsRoute: typeof AuthedAccountAccountIdSettingsNotificationsRoute
+  AuthedAccountAccountIdSettingsPlanRoute: typeof AuthedAccountAccountIdSettingsPlanRoute
 }
 
-const AccountAccountIdSettingsRouteRouteChildren: AccountAccountIdSettingsRouteRouteChildren =
+const AuthedAccountAccountIdSettingsRouteRouteChildren: AuthedAccountAccountIdSettingsRouteRouteChildren =
   {
-    AccountAccountIdSettingsAccountRoute: AccountAccountIdSettingsAccountRoute,
-    AccountAccountIdSettingsMembersRoute: AccountAccountIdSettingsMembersRoute,
-    AccountAccountIdSettingsNotificationsRoute:
-      AccountAccountIdSettingsNotificationsRoute,
-    AccountAccountIdSettingsPlanRoute: AccountAccountIdSettingsPlanRoute,
+    AuthedAccountAccountIdSettingsAccountRoute:
+      AuthedAccountAccountIdSettingsAccountRoute,
+    AuthedAccountAccountIdSettingsMembersRoute:
+      AuthedAccountAccountIdSettingsMembersRoute,
+    AuthedAccountAccountIdSettingsNotificationsRoute:
+      AuthedAccountAccountIdSettingsNotificationsRoute,
+    AuthedAccountAccountIdSettingsPlanRoute:
+      AuthedAccountAccountIdSettingsPlanRoute,
   }
 
-const AccountAccountIdSettingsRouteRouteWithChildren =
-  AccountAccountIdSettingsRouteRoute._addFileChildren(
-    AccountAccountIdSettingsRouteRouteChildren,
+const AuthedAccountAccountIdSettingsRouteRouteWithChildren =
+  AuthedAccountAccountIdSettingsRouteRoute._addFileChildren(
+    AuthedAccountAccountIdSettingsRouteRouteChildren,
   )
+
+interface AuthedAccountAccountIdRouteRouteChildren {
+  AuthedAccountAccountIdApplicationIdRouteRoute: typeof AuthedAccountAccountIdApplicationIdRouteRouteWithChildren
+  AuthedAccountAccountIdSettingsRouteRoute: typeof AuthedAccountAccountIdSettingsRouteRouteWithChildren
+  AuthedAccountAccountIdCreateRoute: typeof AuthedAccountAccountIdCreateRoute
+  AuthedAccountAccountIdSandboxRoute: typeof AuthedAccountAccountIdSandboxRoute
+}
+
+const AuthedAccountAccountIdRouteRouteChildren: AuthedAccountAccountIdRouteRouteChildren =
+  {
+    AuthedAccountAccountIdApplicationIdRouteRoute:
+      AuthedAccountAccountIdApplicationIdRouteRouteWithChildren,
+    AuthedAccountAccountIdSettingsRouteRoute:
+      AuthedAccountAccountIdSettingsRouteRouteWithChildren,
+    AuthedAccountAccountIdCreateRoute: AuthedAccountAccountIdCreateRoute,
+    AuthedAccountAccountIdSandboxRoute: AuthedAccountAccountIdSandboxRoute,
+  }
+
+const AuthedAccountAccountIdRouteRouteWithChildren =
+  AuthedAccountAccountIdRouteRoute._addFileChildren(
+    AuthedAccountAccountIdRouteRouteChildren,
+  )
+
+interface AuthedRouteChildren {
+  AuthedAccountAccountIdRouteRoute: typeof AuthedAccountAccountIdRouteRouteWithChildren
+}
+
+const AuthedRouteChildren: AuthedRouteChildren = {
+  AuthedAccountAccountIdRouteRoute:
+    AuthedAccountAccountIdRouteRouteWithChildren,
+}
+
+const AuthedRouteWithChildren =
+  AuthedRoute._addFileChildren(AuthedRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthedRoute: AuthedRouteWithChildren,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
   ApiDemoTqTodosRoute: ApiDemoTqTodosRoute,
   DemoClerkRoute: DemoClerkRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  AccountAccountIdApplicationIdRouteRoute:
-    AccountAccountIdApplicationIdRouteRouteWithChildren,
-  AccountAccountIdSettingsRouteRoute:
-    AccountAccountIdSettingsRouteRouteWithChildren,
-  AccountAccountIdCreateRoute: AccountAccountIdCreateRoute,
-  AccountAccountIdSandboxRoute: AccountAccountIdSandboxRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoSentryTestingRoute: DemoSentryTestingRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
@@ -568,10 +633,11 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { startInstance } from './start.ts'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
     router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }

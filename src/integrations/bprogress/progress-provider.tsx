@@ -11,12 +11,10 @@ function ProgressProviderInner({ children }: { children: React.ReactNode }) {
 
 	useEffect(() => {
 		const unsubscribe = router.subscribe("onBeforeLoad", () => {
-			console.log("[BProgress] onBeforeLoad");
 			start();
 		});
 
 		const unsubscribeLoad = router.subscribe("onLoad", () => {
-			console.log("[BProgress] onLoad");
 			stop();
 		});
 

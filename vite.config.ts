@@ -7,8 +7,6 @@ import { nitroV2Plugin } from '@tanstack/nitro-v2-vite-plugin'
 
 import { wrapVinxiConfigWithSentry } from '@sentry/tanstackstart-react'
 
-console.log("Deploy please")
-
 const config = defineConfig({
   plugins: [
     // this is the plugin that enables path aliases

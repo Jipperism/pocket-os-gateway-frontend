@@ -24,7 +24,7 @@ export const getRouter = () => {
 			);
 		},
 		routeTree,
-		context: { ...rqContext },
+		context: { ...rqContext, portalUserId: null, token: null },
 		defaultPreload: "intent",
 		Wrap: (props: { children: React.ReactNode }) => {
 			return (

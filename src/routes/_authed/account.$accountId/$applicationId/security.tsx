@@ -13,7 +13,7 @@ import { WhitelistServicesContent } from "@/components/forms/WhitelistServices";
 import { WhitelistUserAgentsContent } from "@/components/forms/WhitelistUserAgents";
 
 export const Route = createFileRoute(
-	"/account/$accountId/$applicationId/security",
+	"/_authed/account/$accountId/$applicationId/security",
 )({
 	component: RouteComponent,
 });
@@ -124,5 +124,5 @@ function RouteComponent() {
 				</DrawerContent>
 			</Drawer>
 		</div>
-	);
+	)
 }

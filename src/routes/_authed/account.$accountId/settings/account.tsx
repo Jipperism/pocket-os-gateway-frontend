@@ -7,12 +7,12 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { User } from "lucide-react";
 
-export const Route = createFileRoute("/account/$accountId/settings/account")({
+export const Route = createFileRoute("/_authed/account/$accountId/settings/account")({
 	component: RouteComponent,
 	loader: async ({ params, context }) => {
 		context.queryClient.ensureQueryData(
 			getAccountByAccountIdQuery(params.accountId),
-		);
+		)
 	},
 });
 
@@ -20,7 +20,7 @@ function RouteComponent() {
 	const { accountId } = Route.useParams();
 	const { data: account } = useSuspenseQuery(
 		getAccountByAccountIdQuery(accountId),
-	);
+	)
 
 	if (!account) {
 		return <div>Account not found</div>;
@@ -62,5 +62,5 @@ function RouteComponent() {
 			/>
 			<CopyableInput value={accountId} />
 		</div>
-	);
+	)
 }

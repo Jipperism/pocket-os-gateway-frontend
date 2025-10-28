@@ -32,7 +32,7 @@ import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute(
-	"/account/$accountId/$applicationId/services",
+	"/_authed/account/$accountId/$applicationId/services",
 )({
 	component: RouteComponent,
 	loader: async ({ context }) => {
@@ -62,7 +62,7 @@ const getServiceIcon = (serviceId: string) => {
 		"ethereum-sepolia": { icon: "Ξ", color: "bg-gray-500" },
 		"polygon-mumbai": { icon: "⬟", color: "bg-purple-400" },
 		"starknet-mainnet": { icon: "S", color: "bg-orange-600" },
-	};
+	}
 
 	return iconMap[serviceId] || { icon: "?", color: "bg-gray-500" };
 };
@@ -108,7 +108,7 @@ function RouteComponent() {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [selectedService, setSelectedService] = useState<ServiceRow | null>(
 		null,
-	);
+	)
 
 	// Transform services data to UI format
 	const transformedServices = useMemo(() => {
@@ -122,8 +122,8 @@ function RouteComponent() {
 				iconColor: color,
 				urls: generateServiceUrls(service),
 				isFavorite: false,
-			};
-		});
+			}
+		})
 	}, [services]);
 
 	// Filter services based on search input
@@ -138,13 +138,13 @@ function RouteComponent() {
 				service.name.toLowerCase().includes(searchLower) ||
 				service.subName.toLowerCase().includes(searchLower) ||
 				service.urls.some((url) => url.toLowerCase().includes(searchLower)),
-		);
+		)
 	}, [transformedServices, searchInput]);
 
 	const handleMarkAsFavorite = useCallback((serviceId: string) => {
 		toast("Service marked as favorite", {
 			description: serviceId,
-		});
+		})
 	}, []);
 
 	const toggleFavorite = useCallback(
@@ -152,7 +152,7 @@ function RouteComponent() {
 			handleMarkAsFavorite(serviceId);
 		},
 		[handleMarkAsFavorite],
-	);
+	)
 
 	const handleClickTestService = useCallback((service: ServiceRow) => {
 		setSelectedService(service);
@@ -264,7 +264,7 @@ function RouteComponent() {
 			}),
 		],
 		[toggleFavorite, handleMarkAsFavorite, handleClickTestService],
-	);
+	)
 
 	// Create table instance
 	const table = useReactTable({
@@ -274,7 +274,7 @@ function RouteComponent() {
 		filterFns: {
 			fuzzy: (() => true) as FilterFn<ServiceRow>,
 		},
-	});
+	})
 
 	const handleSearchChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -282,7 +282,7 @@ function RouteComponent() {
 			table.setGlobalFilter(e.target.value);
 		},
 		[table],
-	);
+	)
 
 	return (
 		<div className="min-h-screen">
@@ -347,5 +347,5 @@ function RouteComponent() {
 				</DrawerContent>
 			</Drawer>
 		</div>
-	);
+	)
 }

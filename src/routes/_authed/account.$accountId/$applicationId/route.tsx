@@ -4,12 +4,12 @@ import { getApplicationsByApplicationIdQuery } from "@/fetching/applications";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/account/$accountId/$applicationId")({
+export const Route = createFileRoute("/_authed/account/$accountId/$applicationId")({
 	component: RouteComponent,
 	loader: async ({ params, context }) => {
 		await context.queryClient.ensureQueryData(
 			getApplicationsByApplicationIdQuery(params.applicationId),
-		);
+		)
 	},
 });
 
@@ -17,7 +17,7 @@ function RouteComponent() {
 	const { accountId, applicationId } = Route.useParams();
 	const { data: application } = useSuspenseQuery(
 		getApplicationsByApplicationIdQuery(applicationId),
-	);
+	)
 
 	if (!application) {
 		return <div>Application not found</div>;
@@ -29,5 +29,5 @@ function RouteComponent() {
 			<ApplicationTabs accountId={accountId} applicationId={applicationId} />
 			<Outlet />
 		</div>
-	);
+	)
 }

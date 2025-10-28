@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 
-export const Route = createFileRoute("/account/$accountId/settings/plan")({
+export const Route = createFileRoute("/_authed/account/$accountId/settings/plan")({
 	component: RouteComponent,
 });
 
@@ -133,5 +133,5 @@ function RouteComponent() {
 				</div>
 			</div>
 		</div>
-	);
+	)
 }
